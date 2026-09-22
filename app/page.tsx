@@ -1,69 +1,260 @@
-import Image from "next/image";
+"use client";
+
+import { useId, useRef, useState } from "react";
+import type { ScoreResponse } from "./types";
+
+// TODO: move to an env var once the backend has a deployed URL.
+const API_BASE_URL = "http://127.0.0.1:8000";
+
+const MODULE_WEIGHTS: Record<"keyword_overlap" | "completeness" | "formatting", number> = {
+  keyword_overlap: 0.5,
+  completeness: 0.25,
+  formatting: 0.25,
+};
 
 export default function Home() {
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [jobDescription, setJobDescription] = useState("");
+  const [result, setResult] = useState<ScoreResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const fileInputId = useId();
+  const jdId = useId();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!resumeFile || !jobDescription.trim()) return;
+
+    setIsSubmitting(true);
+    setError(null);
+    setResult(null);
+
+    const formData = new FormData();
+    formData.append("resume", resumeFile);
+    formData.append("job_description", jobDescription);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/score`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => null);
+        throw new Error(body?.detail ?? `Request failed with status ${response.status}`);
+      }
+
+      setResult(await response.json());
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Couldn't reach the scoring service. Check that the backend is running and try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  const canSubmit = !!resumeFile && jobDescription.trim().length > 0 && !isSubmitting;
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-12 px-4 py-12 sm:px-6">
+      <header className="flex flex-col gap-3">
+        <div className="flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-accent text-accent-foreground font-mono text-sm font-semibold">
+            RL
+          </span>
+          <span className="font-mono text-sm uppercase tracking-widest text-muted">RezuLens</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+        <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          See exactly why your resume scored what it scored.
+        </h1>
+        <p className="max-w-prose text-muted leading-relaxed">
+          Upload a resume and a job description. Every point is traced to a rule you can inspect —
+          keyword matches, structural checks, formatting risks. No AI in the loop, nothing stored.
+        </p>
+      </header>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6 rounded-xl border border-line bg-surface p-6 sm:p-8">
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div className="flex flex-col gap-2">
+            <label htmlFor={fileInputId} className="text-sm font-medium">
+              Resume
+            </label>
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="flex flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line bg-background px-4 py-8 text-center transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent"
+            >
+              <span className="font-mono text-sm">
+                {resumeFile ? resumeFile.name : "Choose PDF or DOCX"}
+              </span>
+              <span className="text-xs text-muted">
+                {resumeFile ? "Click to replace" : "Parsed, scored, and discarded"}
+              </span>
+            </button>
+            <input
+              ref={fileInputRef}
+              id={fileInputId}
+              type="file"
+              accept=".pdf,.docx"
+              className="sr-only"
+              onChange={(e) => setResumeFile(e.target.files?.[0] ?? null)}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label htmlFor={jdId} className="text-sm font-medium">
+              Job description
+            </label>
+            <textarea
+              id={jdId}
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+              placeholder="Paste the full job posting text here…"
+              rows={6}
+              className="flex-1 resize-none rounded-lg border border-line bg-background p-3 text-sm leading-relaxed placeholder:text-muted focus-visible:outline-2 focus-visible:outline-accent"
+            />
+          </div>
         </div>
-      </main>
+
+        <button
+          type="submit"
+          disabled={!canSubmit}
+          className="rounded-lg bg-accent px-5 py-3 font-medium text-accent-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {isSubmitting ? "Scoring…" : "Score resume"}
+        </button>
+
+        {error && (
+          <p role="alert" className="rounded-lg bg-bad-bg px-4 py-3 text-sm text-bad">
+            {error}
+          </p>
+        )}
+      </form>
+
+      {result && <ResultView result={result} />}
     </div>
+  );
+}
+
+function ResultView({ result }: { result: ScoreResponse }) {
+  return (
+    <section className="flex flex-col gap-6" aria-label="Score breakdown">
+      <div className="flex flex-col gap-6 rounded-xl border border-line bg-surface p-6 sm:p-8">
+        <div className="flex items-baseline gap-4">
+          <span className="font-mono text-5xl font-semibold tabular-nums">{result.overall_score}</span>
+          <span className="text-muted">/ 100 overall</span>
+        </div>
+
+        <div className="flex h-2 overflow-hidden rounded-full bg-background">
+          <div
+            className="bg-accent"
+            style={{ width: `${MODULE_WEIGHTS.keyword_overlap * 100}%` }}
+            title={`Keyword overlap — ${Math.round(MODULE_WEIGHTS.keyword_overlap * 100)}% of overall score`}
+          />
+          <div
+            className="bg-accent/60"
+            style={{ width: `${MODULE_WEIGHTS.completeness * 100}%` }}
+            title={`Completeness — ${Math.round(MODULE_WEIGHTS.completeness * 100)}% of overall score`}
+          />
+          <div
+            className="bg-accent/30"
+            style={{ width: `${MODULE_WEIGHTS.formatting * 100}%` }}
+            title={`Formatting — ${Math.round(MODULE_WEIGHTS.formatting * 100)}% of overall score`}
+          />
+        </div>
+        <div className="flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs text-muted">
+          <span>Keyword overlap · 50%</span>
+          <span>Completeness · 25%</span>
+          <span>Formatting · 25%</span>
+        </div>
+      </div>
+
+      <ModuleCard title="Keyword overlap" score={result.keyword_overlap.score}>
+        {result.keyword_overlap.matched.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted">
+              Matched ({result.keyword_overlap.matched.length})
+            </p>
+            <ul className="flex flex-wrap gap-2">
+              {result.keyword_overlap.matched.map((m) => (
+                <li
+                  key={m.skill}
+                  className="rounded-full bg-good-bg px-3 py-1 font-mono text-xs text-good"
+                  title={`Found in "${m.resume_section}"`}
+                >
+                  {m.skill}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {result.keyword_overlap.missing.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted">
+              Missing ({result.keyword_overlap.missing.length})
+            </p>
+            <ul className="flex flex-wrap gap-2">
+              {result.keyword_overlap.missing.map((skill) => (
+                <li key={skill} className="rounded-full bg-bad-bg px-3 py-1 font-mono text-xs text-bad">
+                  {skill}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </ModuleCard>
+
+      <ModuleCard title="Completeness" score={result.completeness.score}>
+        <CheckList checks={result.completeness.checks} />
+      </ModuleCard>
+
+      <ModuleCard title="Formatting" score={result.formatting.score}>
+        <CheckList checks={result.formatting.checks} />
+      </ModuleCard>
+    </section>
+  );
+}
+
+function ModuleCard({
+  title,
+  score,
+  children,
+}: {
+  title: string;
+  score: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-6 sm:p-8">
+      <div className="flex items-center justify-between">
+        <h3 className="font-medium">{title}</h3>
+        <span className="font-mono text-sm tabular-nums text-muted">{score}/100</span>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function CheckList({ checks }: { checks: { name: string; passed: boolean; detail: string }[] }) {
+  return (
+    <ul className="flex flex-col gap-2">
+      {checks.map((c) => (
+        <li key={c.name} className="flex items-start gap-3 text-sm">
+          <span
+            className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${
+              c.passed ? "bg-good-bg text-good" : "bg-bad-bg text-bad"
+            }`}
+            aria-hidden="true"
+          >
+            {c.passed ? "✓" : "✗"}
+          </span>
+          <span className="text-muted">{c.detail}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
