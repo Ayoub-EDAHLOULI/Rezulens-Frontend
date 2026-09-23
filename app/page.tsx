@@ -3,8 +3,8 @@
 import { useId, useRef, useState } from "react";
 import type { ScoreResponse } from "./types";
 
-// TODO: move to an env var once the backend has a deployed URL.
-const API_BASE_URL = "http://127.0.0.1:8000";
+// Set NEXT_PUBLIC_API_URL to point at a non-default backend (see .env.local.example).
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
 
 const MODULE_WEIGHTS: Record<
   "keyword_overlap" | "completeness" | "formatting",
@@ -21,6 +21,7 @@ export default function Home() {
   const [result, setResult] = useState<ScoreResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const fileInputId = useId();
   const jdId = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -72,8 +73,14 @@ export default function Home() {
     setIsSubmitting(false);
   }
 
-  const canSubmit =
-    !!resumeFile && jobDescription.trim().length > 0 && !isSubmitting;
+  const missingFieldsMessage = !resumeFile
+    ? jobDescription.trim()
+      ? "Select a resume file to continue."
+      : "Select a resume file and paste a job description to continue."
+    : !jobDescription.trim()
+      ? "Paste a job description to continue."
+      : null;
+  const canSubmit = !missingFieldsMessage && !isSubmitting;
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-12 px-4 py-12 sm:px-6">
@@ -107,7 +114,10 @@ export default function Home() {
             </label>
             <button
               type="button"
-              onClick={() => fileInputRef.current?.click()}
+              onClick={() => {
+                setHasInteracted(true);
+                fileInputRef.current?.click();
+              }}
               className="flex flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line bg-background px-4 py-8 text-center transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent"
             >
               <span className="font-mono text-sm">
@@ -125,7 +135,10 @@ export default function Home() {
               type="file"
               accept=".pdf,.docx"
               className="sr-only"
-              onChange={(e) => setResumeFile(e.target.files?.[0] ?? null)}
+              onChange={(e) => {
+                setHasInteracted(true);
+                setResumeFile(e.target.files?.[0] ?? null);
+              }}
             />
           </div>
 
@@ -136,7 +149,10 @@ export default function Home() {
             <textarea
               id={jdId}
               value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
+              onChange={(e) => {
+                setHasInteracted(true);
+                setJobDescription(e.target.value);
+              }}
               placeholder="Paste the full job posting text here…"
               rows={6}
               className="flex-1 resize-none rounded-lg border border-line bg-background p-3 text-sm leading-relaxed placeholder:text-muted focus-visible:outline-2 focus-visible:outline-accent"
@@ -152,6 +168,10 @@ export default function Home() {
           {isSubmitting && <Spinner />}
           {isSubmitting ? "Scoring…" : "Score resume"}
         </button>
+
+        {hasInteracted && missingFieldsMessage && !isSubmitting && (
+          <p className="text-sm text-muted">{missingFieldsMessage}</p>
+        )}
 
         {error && (
           <p
