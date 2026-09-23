@@ -14,6 +14,7 @@
   --bad-bg: #fdedec;
   --warn: #92400e;
   --warn-bg: #fef3e2;
+  --accent-soft: #eef1fc;
 }
 
 @theme inline {
@@ -30,6 +31,7 @@
   --color-bad-bg: var(--bad-bg);
   --color-warn: var(--warn);
   --color-warn-bg: var(--warn-bg);
+  --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -49,6 +51,7 @@
     --bad-bg: #3a1917;
     --warn: #fbbf6b;
     --warn-bg: #3a2a10;
+    --accent-soft: #1c2140;
   }
 }
 
