@@ -15,6 +15,13 @@ const MODULE_WEIGHTS: Record<
   formatting: 0.25,
 };
 
+const ACCEPTED_EXTENSIONS = [".pdf", ".docx"];
+
+function hasAcceptedExtension(filename: string): boolean {
+  const lower = filename.toLowerCase();
+  return ACCEPTED_EXTENSIONS.some((ext) => lower.endsWith(ext));
+}
+
 export default function Home() {
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [jobDescription, setJobDescription] = useState("");
@@ -22,9 +29,21 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [fileTypeError, setFileTypeError] = useState<string | null>(null);
+  const [isDragActive, setIsDragActive] = useState(false);
   const fileInputId = useId();
   const jdId = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function acceptFile(file: File) {
+    setHasInteracted(true);
+    if (!hasAcceptedExtension(file.name)) {
+      setFileTypeError(`"${file.name}" isn't a PDF or DOCX file.`);
+      return;
+    }
+    setFileTypeError(null);
+    setResumeFile(file);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -118,10 +137,25 @@ export default function Home() {
                 setHasInteracted(true);
                 fileInputRef.current?.click();
               }}
-              className="flex flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line bg-background px-4 py-8 text-center transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent"
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDragActive(true);
+              }}
+              onDragLeave={() => setIsDragActive(false)}
+              onDrop={(e) => {
+                e.preventDefault();
+                setIsDragActive(false);
+                const file = e.dataTransfer.files?.[0];
+                if (file) acceptFile(file);
+              }}
+              className={`flex flex-col items-center justify-center gap-1 rounded-lg border border-dashed px-4 py-8 text-center transition-colors focus-visible:outline-2 focus-visible:outline-accent ${
+                isDragActive
+                  ? "border-accent bg-accent/5"
+                  : "border-line bg-background hover:border-accent"
+              }`}
             >
               <span className="font-mono text-sm">
-                {resumeFile ? resumeFile.name : "Choose PDF or DOCX"}
+                {resumeFile ? resumeFile.name : "Choose or drop a PDF or DOCX"}
               </span>
               <span className="text-xs text-muted">
                 {resumeFile
@@ -136,10 +170,13 @@ export default function Home() {
               accept=".pdf,.docx"
               className="sr-only"
               onChange={(e) => {
-                setHasInteracted(true);
-                setResumeFile(e.target.files?.[0] ?? null);
+                const file = e.target.files?.[0];
+                if (file) acceptFile(file);
               }}
             />
+            {fileTypeError && (
+              <p className="text-sm text-bad">{fileTypeError}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-2">
