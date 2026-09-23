@@ -17,9 +17,18 @@ const MODULE_WEIGHTS: Record<
 
 const ACCEPTED_EXTENSIONS = [".pdf", ".docx"];
 
+// Keep in sync with MAX_UPLOAD_BYTES in rezulens-backend/main.py — checking
+// here just avoids a doomed round-trip; the backend's limit is what's
+// actually enforced.
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
+
 function hasAcceptedExtension(filename: string): boolean {
   const lower = filename.toLowerCase();
   return ACCEPTED_EXTENSIONS.some((ext) => lower.endsWith(ext));
+}
+
+function formatMegabytes(bytes: number): string {
+  return (bytes / (1024 * 1024)).toFixed(1);
 }
 
 export default function Home() {
@@ -29,7 +38,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
-  const [fileTypeError, setFileTypeError] = useState<string | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
   const fileInputId = useId();
   const jdId = useId();
@@ -38,10 +47,16 @@ export default function Home() {
   function acceptFile(file: File) {
     setHasInteracted(true);
     if (!hasAcceptedExtension(file.name)) {
-      setFileTypeError(`"${file.name}" isn't a PDF or DOCX file.`);
+      setFileError(`"${file.name}" isn't a PDF or DOCX file.`);
       return;
     }
-    setFileTypeError(null);
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+      setFileError(
+        `"${file.name}" is ${formatMegabytes(file.size)}MB — the limit is ${formatMegabytes(MAX_FILE_SIZE_BYTES)}MB.`,
+      );
+      return;
+    }
+    setFileError(null);
     setResumeFile(file);
   }
 
@@ -174,9 +189,7 @@ export default function Home() {
                 if (file) acceptFile(file);
               }}
             />
-            {fileTypeError && (
-              <p className="text-sm text-bad">{fileTypeError}</p>
-            )}
+            {fileError && <p className="text-sm text-bad">{fileError}</p>}
           </div>
 
           <div className="flex flex-col gap-2">
