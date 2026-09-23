@@ -37,29 +37,39 @@ export default function Home() {
     formData.append("resume", resumeFile);
     formData.append("job_description", jobDescription);
 
+    let response: Response;
     try {
-      const response = await fetch(`${API_BASE_URL}/score`, {
+      response = await fetch(`${API_BASE_URL}/score`, {
         method: "POST",
         body: formData,
       });
-
-      if (!response.ok) {
-        const body = await response.json().catch(() => null);
-        throw new Error(
-          body?.detail ?? `Request failed with status ${response.status}`,
-        );
-      }
-
-      setResult(await response.json());
-    } catch (err) {
+    } catch {
+      // fetch itself throws (TypeError) when the request never reaches a
+      // server at all — backend down, wrong URL, no network.
       setError(
-        err instanceof Error
-          ? err.message
-          : "Couldn't reach the scoring service. Check that the backend is running and try again.",
+        "Can't reach the scoring service. Make sure the backend is running and try again.",
       );
-    } finally {
       setIsSubmitting(false);
+      return;
     }
+
+    if (!response.ok) {
+      const body = await response.json().catch(() => null);
+      // 4xx errors from this API carry a specific, user-facing `detail`
+      // (unsupported file type, empty job description, unparseable resume).
+      // Anything else is an unexpected server-side failure — don't surface
+      // its raw status code or body to the user.
+      setError(
+        response.status >= 400 && response.status < 500 && body?.detail
+          ? body.detail
+          : "Something went wrong on our end. Please try again.",
+      );
+      setIsSubmitting(false);
+      return;
+    }
+
+    setResult(await response.json());
+    setIsSubmitting(false);
   }
 
   const canSubmit =
@@ -137,8 +147,9 @@ export default function Home() {
         <button
           type="submit"
           disabled={!canSubmit}
-          className="rounded-lg bg-accent px-5 py-3 font-medium text-accent-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 font-medium text-accent-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
         >
+          {isSubmitting && <Spinner />}
           {isSubmitting ? "Scoring…" : "Score resume"}
         </button>
 
@@ -152,7 +163,47 @@ export default function Home() {
         )}
       </form>
 
+      {isSubmitting && <ResultSkeleton />}
       {result && <ResultView result={result} />}
+    </div>
+  );
+}
+
+function Spinner() {
+  return (
+    <svg
+      className="h-4 w-4 animate-spin motion-reduce:animate-none"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <path
+        className="opacity-90"
+        fill="currentColor"
+        d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4Z"
+      />
+    </svg>
+  );
+}
+
+function ResultSkeleton() {
+  return (
+    <div
+      className="flex flex-col gap-6 animate-pulse motion-reduce:animate-none"
+      aria-hidden="true"
+    >
+      <div className="h-28 rounded-xl border border-line bg-surface" />
+      <div className="h-40 rounded-xl border border-line bg-surface" />
+      <div className="h-40 rounded-xl border border-line bg-surface" />
+      <div className="h-24 rounded-xl border border-line bg-surface" />
     </div>
   );
 }
