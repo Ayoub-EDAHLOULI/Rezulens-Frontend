@@ -12,6 +12,8 @@
   --good-bg: #eaf6ef;
   --bad: #b42318;
   --bad-bg: #fdedec;
+  --warn: #92400e;
+  --warn-bg: #fef3e2;
 }
 
 @theme inline {
@@ -26,6 +28,8 @@
   --color-good-bg: var(--good-bg);
   --color-bad: var(--bad);
   --color-bad-bg: var(--bad-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -43,6 +47,8 @@
     --good-bg: #123023;
     --bad: #f28b82;
     --bad-bg: #3a1917;
+    --warn: #fbbf6b;
+    --warn-bg: #3a2a10;
   }
 }
 

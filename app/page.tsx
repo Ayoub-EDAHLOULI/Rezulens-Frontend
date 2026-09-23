@@ -6,7 +6,10 @@ import type { ScoreResponse } from "./types";
 // TODO: move to an env var once the backend has a deployed URL.
 const API_BASE_URL = "http://127.0.0.1:8000";
 
-const MODULE_WEIGHTS: Record<"keyword_overlap" | "completeness" | "formatting", number> = {
+const MODULE_WEIGHTS: Record<
+  "keyword_overlap" | "completeness" | "formatting",
+  number
+> = {
   keyword_overlap: 0.5,
   completeness: 0.25,
   formatting: 0.25,
@@ -42,7 +45,9 @@ export default function Home() {
 
       if (!response.ok) {
         const body = await response.json().catch(() => null);
-        throw new Error(body?.detail ?? `Request failed with status ${response.status}`);
+        throw new Error(
+          body?.detail ?? `Request failed with status ${response.status}`,
+        );
       }
 
       setResult(await response.json());
@@ -50,14 +55,15 @@ export default function Home() {
       setError(
         err instanceof Error
           ? err.message
-          : "Couldn't reach the scoring service. Check that the backend is running and try again."
+          : "Couldn't reach the scoring service. Check that the backend is running and try again.",
       );
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  const canSubmit = !!resumeFile && jobDescription.trim().length > 0 && !isSubmitting;
+  const canSubmit =
+    !!resumeFile && jobDescription.trim().length > 0 && !isSubmitting;
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-12 px-4 py-12 sm:px-6">
@@ -66,18 +72,24 @@ export default function Home() {
           <span className="flex h-8 w-8 items-center justify-center rounded-md bg-accent text-accent-foreground font-mono text-sm font-semibold">
             RL
           </span>
-          <span className="font-mono text-sm uppercase tracking-widest text-muted">RezuLens</span>
+          <span className="font-mono text-sm uppercase tracking-widest text-muted">
+            RezuLens
+          </span>
         </div>
         <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
           See exactly why your resume scored what it scored.
         </h1>
         <p className="max-w-prose text-muted leading-relaxed">
-          Upload a resume and a job description. Every point is traced to a rule you can inspect —
-          keyword matches, structural checks, formatting risks. No AI in the loop, nothing stored.
+          Upload a resume and a job description. Every point is traced to a rule
+          you can inspect — keyword matches, structural checks, formatting
+          risks. No AI in the loop, nothing stored.
         </p>
       </header>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6 rounded-xl border border-line bg-surface p-6 sm:p-8">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-6 rounded-xl border border-line bg-surface p-6 sm:p-8"
+      >
         <div className="grid gap-6 sm:grid-cols-2">
           <div className="flex flex-col gap-2">
             <label htmlFor={fileInputId} className="text-sm font-medium">
@@ -92,7 +104,9 @@ export default function Home() {
                 {resumeFile ? resumeFile.name : "Choose PDF or DOCX"}
               </span>
               <span className="text-xs text-muted">
-                {resumeFile ? "Click to replace" : "Parsed, scored, and discarded"}
+                {resumeFile
+                  ? "Click to replace"
+                  : "Parsed, scored, and discarded"}
               </span>
             </button>
             <input
@@ -129,7 +143,10 @@ export default function Home() {
         </button>
 
         {error && (
-          <p role="alert" className="rounded-lg bg-bad-bg px-4 py-3 text-sm text-bad">
+          <p
+            role="alert"
+            className="rounded-lg bg-bad-bg px-4 py-3 text-sm text-bad"
+          >
             {error}
           </p>
         )}
@@ -145,7 +162,9 @@ function ResultView({ result }: { result: ScoreResponse }) {
     <section className="flex flex-col gap-6" aria-label="Score breakdown">
       <div className="flex flex-col gap-6 rounded-xl border border-line bg-surface p-6 sm:p-8">
         <div className="flex items-baseline gap-4">
-          <span className="font-mono text-5xl font-semibold tabular-nums">{result.overall_score}</span>
+          <span className="font-mono text-5xl font-semibold tabular-nums">
+            {result.overall_score}
+          </span>
           <span className="text-muted">/ 100 overall</span>
         </div>
 
@@ -174,6 +193,15 @@ function ResultView({ result }: { result: ScoreResponse }) {
       </div>
 
       <ModuleCard title="Keyword overlap" score={result.keyword_overlap.score}>
+        {result.keyword_overlap.low_coverage_warning && (
+          <p
+            role="alert"
+            className="flex items-start gap-2 rounded-lg bg-warn-bg px-4 py-3 text-sm text-warn"
+          >
+            <span aria-hidden="true">⚠</span>
+            <span>{result.keyword_overlap.low_coverage_warning}</span>
+          </p>
+        )}
         {result.keyword_overlap.matched.length > 0 && (
           <div className="flex flex-col gap-2">
             <p className="text-xs font-medium uppercase tracking-wide text-muted">
@@ -199,7 +227,10 @@ function ResultView({ result }: { result: ScoreResponse }) {
             </p>
             <ul className="flex flex-wrap gap-2">
               {result.keyword_overlap.missing.map((skill) => (
-                <li key={skill} className="rounded-full bg-bad-bg px-3 py-1 font-mono text-xs text-bad">
+                <li
+                  key={skill}
+                  className="rounded-full bg-bad-bg px-3 py-1 font-mono text-xs text-bad"
+                >
                   {skill}
                 </li>
               ))}
@@ -232,14 +263,20 @@ function ModuleCard({
     <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-6 sm:p-8">
       <div className="flex items-center justify-between">
         <h3 className="font-medium">{title}</h3>
-        <span className="font-mono text-sm tabular-nums text-muted">{score}/100</span>
+        <span className="font-mono text-sm tabular-nums text-muted">
+          {score}/100
+        </span>
       </div>
       {children}
     </div>
   );
 }
 
-function CheckList({ checks }: { checks: { name: string; passed: boolean; detail: string }[] }) {
+function CheckList({
+  checks,
+}: {
+  checks: { name: string; passed: boolean; detail: string }[];
+}) {
   return (
     <ul className="flex flex-col gap-2">
       {checks.map((c) => (

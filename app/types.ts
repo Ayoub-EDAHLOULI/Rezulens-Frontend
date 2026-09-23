@@ -10,6 +10,7 @@ export type KeywordOverlapResult = {
   score: number;
   matched: MatchedKeyword[];
   missing: string[];
+  low_coverage_warning: string | null;
 };
 
 export type Check = {
