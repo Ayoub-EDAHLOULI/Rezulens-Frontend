@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import MobileMenu from "./MobileMenu";
 import ThemeToggle from "./ThemeToggle";
 
 const GITHUB_URL = "https://github.com/Ayoub-EDAHLOULI/rezulens-frontend";
 
 export default function Navbar() {
   return (
-    <header className="border-b border-line">
+    <header className="relative border-b border-line">
       <nav className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-5 sm:px-6">
         <Link href="/" className="flex items-center overflow-visible">
           <Image
@@ -50,6 +51,7 @@ export default function Navbar() {
             <span className="hidden sm:inline">GitHub</span>
           </a>
           <ThemeToggle />
+          <MobileMenu />
         </div>
       </nav>
     </header>
