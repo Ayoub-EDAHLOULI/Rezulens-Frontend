@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 const GITHUB_URL = "https://github.com/Ayoub-EDAHLOULI/rezulens-frontend";
 
@@ -45,6 +46,7 @@ export default function Navbar() {
             </svg>
             <span className="hidden sm:inline">GitHub</span>
           </a>
+          <ThemeToggle />
         </div>
       </nav>
     </header>

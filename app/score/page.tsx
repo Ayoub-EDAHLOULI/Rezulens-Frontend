@@ -1,8 +1,16 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
+import { motion } from "motion/react";
 import type { ScoreResponse } from "../types";
 import { ResultSkeleton, ResultView, Spinner } from "./components";
+
+// Load-triggered entrance (not scroll-triggered like Home/How-it-works'
+// Reveal) since the header and form are already in view on page load.
+const fadeInUp = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
 
 // Set NEXT_PUBLIC_API_URL to point at a non-default backend (see .env.local.example).
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
@@ -110,8 +118,13 @@ export default function ScorePage() {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-14 px-4 py-16 sm:px-6 sm:py-20">
-      <header className="flex flex-col gap-4">
-        <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+      <motion.header
+        className="flex flex-col gap-4"
+        initial="hidden"
+        animate="show"
+        variants={fadeInUp}
+      >
+        <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
           Score your resume
         </h1>
         <p className="max-w-prose text-lg text-muted leading-relaxed">
@@ -119,9 +132,13 @@ export default function ScorePage() {
           you can inspect — keyword matches, structural checks, formatting
           risks. No AI in the loop, nothing stored.
         </p>
-      </header>
+      </motion.header>
 
-      <form
+      <motion.form
+        initial="hidden"
+        animate="show"
+        variants={fadeInUp}
+        transition={{ delay: 0.12 }}
         onSubmit={handleSubmit}
         className="flex flex-col gap-6 rounded-xl border border-line bg-surface p-6 sm:p-8"
       >
@@ -215,7 +232,7 @@ export default function ScorePage() {
             {error}
           </p>
         )}
-      </form>
+      </motion.form>
 
       {isSubmitting && <ResultSkeleton />}
       {result && <ResultView result={result} />}
