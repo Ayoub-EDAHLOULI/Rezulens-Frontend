@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 
@@ -6,14 +7,16 @@ const GITHUB_URL = "https://github.com/Ayoub-EDAHLOULI/rezulens-frontend";
 export default function Navbar() {
   return (
     <header className="border-b border-line">
-      <nav className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-accent text-accent-foreground font-mono text-sm font-semibold">
-            RL
-          </span>
-          <span className="font-mono text-sm uppercase tracking-widest text-muted">
-            RezuLens
-          </span>
+      <nav className="mx-auto flex w-full max-w-5xl items-center justify-between px-4 py-5 sm:px-6">
+        <Link href="/" className="flex items-center overflow-visible">
+          <Image
+            src="/logo-light.png"
+            alt="RezuLens"
+            width={140}
+            height={72}
+            priority
+            className="h-16 w-auto -my-6 sm:h-18 sm:-my-8"
+          />
         </Link>
 
         <div className="flex items-center gap-6 text-sm font-medium">
