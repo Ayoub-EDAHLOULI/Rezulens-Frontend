@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "title": "RezuLens — Transparent ATS Resume Scoring",
+    "description": "See exactly why your resume scored what it scored. Deterministic, rule-based resume scoring — no AI in the loop, nothing stored."
+  },
+  "nav": {
+    "howItWorks": "How it works",
+    "scoreResume": "Score a resume",
+    "github": "GitHub",
+    "changeLanguage": "Change language"
+  },
+  "theme": {
+    "switchToLight": "Switch to light theme",
+    "switchToDark": "Switch to dark theme"
+  },
+  "menu": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "scrollToTop": {
+    "label": "Scroll to top"
+  },
+  "footer": {
+    "openSource": "RezuLens is free and <link>open source</link>, licensed under MIT.",
+    "tagline": "No accounts. No storage. No AI in the score."
+  },
+  "score": {
+    "title": "Score your resume",
+    "subtitle": "Upload a resume and a job description. Every point is traced to a rule you can inspect — keyword matches, structural checks, formatting risks. No AI in the loop, nothing stored.",
+    "form": {
+      "resumeLabel": "Resume",
+      "chooseFile": "Choose or drop a PDF or DOCX",
+      "clickToReplace": "Click to replace",
+      "parsedAndDiscarded": "Parsed, scored, and discarded",
+      "jobDescriptionLabel": "Job description",
+      "jobDescriptionPlaceholder": "Paste the full job posting text here…",
+      "scoring": "Scoring…",
+      "submit": "Score resume"
+    },
+    "fileErrors": {
+      "wrongType": "\"{filename}\" isn't a PDF or DOCX file.",
+      "tooLarge": "\"{filename}\" is {size}MB — the limit is {limit}MB."
+    },
+    "missingFields": {
+      "fileOnly": "Select a resume file to continue.",
+      "both": "Select a resume file and paste a job description to continue.",
+      "jobDescriptionOnly": "Paste a job description to continue."
+    },
+    "errors": {
+      "unreachable": "Can't reach the scoring service. Make sure the backend is running and try again.",
+      "generic": "Something went wrong on our end. Please try again."
+    },
+    "results": {
+      "breakdownLabel": "Score breakdown",
+      "overallOutOf100": "/ 100 overall",
+      "keywordOverlap": "Keyword overlap",
+      "completeness": "Completeness",
+      "formatting": "Formatting",
+      "weightTitle": "{module} — {percent}% of overall score",
+      "weightLabel": "{module} · {percent}%",
+      "matched": "Matched ({count})",
+      "missing": "Missing ({count})",
+      "foundIn": "Found in \"{section}\""
+    }
+  },
+  "home": {
+    "badge": "Free · Open source",
+    "heroTitle": "See exactly why your resume scored what it scored.",
+    "heroSubtitle": "Upload a resume and a job description. Every point is traced to a rule you can inspect — keyword matches, structural checks, formatting risks. No AI in the loop, nothing stored.",
+    "scoreYourResume": "Score your resume",
+    "seeHowScoringWorks": "See how scoring works",
+    "realScoreStartToFinish": "A real score, start to finish",
+    "weightedFrom": "Weighted from keyword overlap, completeness, and formatting",
+    "exampleResult": "Example result",
+    "exampleResultSubtitle": "A resume scored against a real job description looks like this.",
+    "illustrativeData": "Illustrative data, not a live score — run your own at",
+    "overallOutOf100": "/ 100 overall",
+    "whyNotJustUseAi": "Why not just use AI",
+    "comparisonSubtitle": "Most resume scorers are a prompt with a number attached.",
+    "threeModulesOneScore": "Three modules, one weighted score",
+    "modules": {
+      "keywordOverlap": {
+        "name": "Keyword overlap",
+        "description": "Does the resume actually contain what this job description asks for."
+      },
+      "completeness": {
+        "name": "Completeness",
+        "description": "Missing sections, missing dates, missing contact info, unquantified bullets."
+      },
+      "formatting": {
+        "name": "Formatting red flags",
+        "description": "Layout and structure that real ATS parsers choke on."
+      },
+      "formattingShort": "Formatting"
+    },
+    "example": {
+      "completeness": {
+        "check1": "'contact' section is present",
+        "check2": "experience section contains at least one date range",
+        "check3": "no email address found in contact section"
+      },
+      "formatting": {
+        "check1": "single-column layout, no side-by-side content detected",
+        "check2": "non-standard section header(s) found: strengths"
+      }
+    },
+    "comparison": {
+      "row1": {
+        "ai": "Score comes from a prompt — ask twice, get two different numbers.",
+        "rezulens": "Score comes from fixed rules — the same input always produces the same output."
+      },
+      "row2": {
+        "ai": "\"Why did I get a 62?\" has no real answer beyond what the model felt like saying.",
+        "rezulens": "Every point traces to a named rule you can read in the source, right now."
+      },
+      "row3": {
+        "ai": "Your resume is sent to a third-party model, and what happens to it next isn't up to you.",
+        "rezulens": "Your resume is parsed, scored, and discarded. Nothing is stored, nothing leaves for training."
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "How scoring works",
+    "subtitle": "Every score breaks down into three independent checks, weighted and shown in full. Nothing is hidden, and nothing is inferred by a language model — every point traces back to a rule you can read for yourself.",
+    "weightedAverageIntro": "The overall score is this weighted average — nothing more. That formula lives as plain code (",
+    "weightedAverageOutro": "in the backend), not a black-box model call.",
+    "weightOfScore": "{weight} of score",
+    "traceHeading": "Trace a single point",
+    "traceSubtitle": "Not an example of how it works. The actual mechanism, step by step.",
+    "noAiHeading": "No AI in the score",
+    "noAiBody": "Nothing above is generated, summarized, or judged by a language model. The score and every finding behind it come from deterministic rules — the same input always produces the same output, and every rule is visible in the source. Your resume is parsed, scored, and discarded; nothing is stored.",
+    "tryItOnYourResume": "Try it on your resume",
+    "modules": {
+      "keywordOverlap": {
+        "name": "Keyword overlap",
+        "weightLabel": "50%",
+        "summary": "The most direct signal of fit: does the resume actually contain what this specific job description asks for.",
+        "detail": "Both the resume and the job description are run through the same rule-based keyword extractor — a curated taxonomy of skills and tools, matched by exact text and fuzzy variants (so \"JavaScript\" and \"JS\" count as the same skill, but \"Java\" never silently matches inside \"JavaScript\"). Every skill the job description asks for is checked against the resume, and every match or gap is listed by name.",
+        "example1": "\"Python\" — matched, found in the Skills section",
+        "example2": "\"Docker\" — matched, found in the Experience section",
+        "example3": "\"Kubernetes\" — missing"
+      },
+      "completeness": {
+        "name": "Completeness",
+        "weightLabel": "25%",
+        "summary": "A secondary quality signal, independent of any specific job: is the resume itself well-formed.",
+        "detail": "A fixed set of structural checks — no interpretation, no scoring on writing quality or tone. Each either passes or fails.",
+        "example1": "\"contact_has_email\" — a real email address was found in the contact section",
+        "example2": "\"experience_has_dates\" — at least one work entry has a date range",
+        "example3": "\"bullets_quantified\" — at least half of experience bullets contain a number"
+      },
+      "formatting": {
+        "name": "Formatting red flags",
+        "weightLabel": "25%",
+        "summary": "A secondary risk signal for real-world ATS parsing, independent of any specific job.",
+        "detail": "Checks for layout choices that are known to break real applicant tracking systems — not because they look bad, but because many ATS parsers read left-to-right, top-to-bottom and can silently scramble or drop content that doesn't follow that shape.",
+        "example1": "\"single_column_layout\" — no multi-column or table-based layout detected",
+        "example2": "\"standard_section_headers\" — every section header matches a recognized name",
+        "example3": "\"no_embedded_images\" — no text is hidden inside an image the parser can't read"
+      }
+    },
+    "trace": {
+      "step1": {
+        "label": "Job description says",
+        "content": "\"...3+ years of experience with AWS or similar cloud infrastructure...\""
+      },
+      "step2": {
+        "label": "Extractor scans for known terms",
+        "content": "The taxonomy has \"AWS\" as a canonical skill with the alias \"Amazon Web Services\". The word \"AWS\" appears in the text with a clean word boundary — not buried inside another word."
+      },
+      "step3": {
+        "label": "Exact match found",
+        "content": "Rule: word-boundary match on \"AWS\" → canonical skill AWS, added to the job description's required-skill list."
+      },
+      "step4": {
+        "label": "Resume is checked for the same skill",
+        "content": "Your resume's Skills section is scanned with the identical extractor. If \"AWS\" or any of its aliases appears anywhere in Skills, Experience, or Summary, it's recorded as matched — along with which section it came from."
+      },
+      "step5": {
+        "label": "Result",
+        "content": "\"AWS\" — matched, found in the Experience section. This exact line is what appears in your results."
+      }
+    }
+  }
+}

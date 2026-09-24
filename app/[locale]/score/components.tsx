@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { motion } from "motion/react";
 import type { ScoreResponse } from "../types";
 import { AnimatedNumber } from "../components/AnimatedNumber";
@@ -59,14 +60,20 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" as const },
+  },
 };
 
 export function ResultView({ result }: { result: ScoreResponse }) {
+  const t = useTranslations("score.results");
+
   return (
     <motion.section
       className="flex flex-col gap-6"
-      aria-label="Score breakdown"
+      aria-label={t("breakdownLabel")}
       initial="hidden"
       animate="show"
       variants={containerVariants}
@@ -80,7 +87,7 @@ export function ResultView({ result }: { result: ScoreResponse }) {
             value={result.overall_score}
             className="font-mono text-5xl font-semibold tabular-nums"
           />
-          <span className="text-muted">/ 100 overall</span>
+          <span className="text-muted">{t("overallOutOf100")}</span>
         </div>
 
         <div className="flex h-2 overflow-hidden rounded-full bg-background">
@@ -89,32 +96,50 @@ export function ResultView({ result }: { result: ScoreResponse }) {
             initial={{ width: 0 }}
             animate={{ width: `${MODULE_WEIGHTS.keyword_overlap * 100}%` }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-            title={`Keyword overlap — ${Math.round(MODULE_WEIGHTS.keyword_overlap * 100)}% of overall score`}
+            title={t("weightTitle", {
+              module: t("keywordOverlap"),
+              percent: Math.round(MODULE_WEIGHTS.keyword_overlap * 100),
+            })}
           />
           <motion.div
             className="bg-accent/60"
             initial={{ width: 0 }}
             animate={{ width: `${MODULE_WEIGHTS.completeness * 100}%` }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
-            title={`Completeness — ${Math.round(MODULE_WEIGHTS.completeness * 100)}% of overall score`}
+            title={t("weightTitle", {
+              module: t("completeness"),
+              percent: Math.round(MODULE_WEIGHTS.completeness * 100),
+            })}
           />
           <motion.div
             className="bg-accent/30"
             initial={{ width: 0 }}
             animate={{ width: `${MODULE_WEIGHTS.formatting * 100}%` }}
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
-            title={`Formatting — ${Math.round(MODULE_WEIGHTS.formatting * 100)}% of overall score`}
+            title={t("weightTitle", {
+              module: t("formatting"),
+              percent: Math.round(MODULE_WEIGHTS.formatting * 100),
+            })}
           />
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs text-muted">
-          <span>Keyword overlap · 50%</span>
-          <span>Completeness · 25%</span>
-          <span>Formatting · 25%</span>
+          <span>
+            {t("weightLabel", { module: t("keywordOverlap"), percent: 50 })}
+          </span>
+          <span>
+            {t("weightLabel", { module: t("completeness"), percent: 25 })}
+          </span>
+          <span>
+            {t("weightLabel", { module: t("formatting"), percent: 25 })}
+          </span>
         </div>
       </motion.div>
 
       <motion.div variants={itemVariants}>
-        <ModuleCard title="Keyword overlap" score={result.keyword_overlap.score}>
+        <ModuleCard
+          title={t("keywordOverlap")}
+          score={result.keyword_overlap.score}
+        >
           {result.keyword_overlap.low_coverage_warning && (
             <p
               role="alert"
@@ -127,14 +152,14 @@ export function ResultView({ result }: { result: ScoreResponse }) {
           {result.keyword_overlap.matched.length > 0 && (
             <div className="flex flex-col gap-2">
               <p className="text-xs font-medium uppercase tracking-wide text-muted">
-                Matched ({result.keyword_overlap.matched.length})
+                {t("matched", { count: result.keyword_overlap.matched.length })}
               </p>
               <ul className="flex flex-wrap gap-2">
                 {result.keyword_overlap.matched.map((m) => (
                   <li
                     key={m.skill}
                     className="rounded-full bg-good-bg px-3 py-1 font-mono text-xs text-good"
-                    title={`Found in "${m.resume_section}"`}
+                    title={t("foundIn", { section: m.resume_section })}
                   >
                     {m.skill}
                   </li>
@@ -145,7 +170,7 @@ export function ResultView({ result }: { result: ScoreResponse }) {
           {result.keyword_overlap.missing.length > 0 && (
             <div className="flex flex-col gap-2">
               <p className="text-xs font-medium uppercase tracking-wide text-muted">
-                Missing ({result.keyword_overlap.missing.length})
+                {t("missing", { count: result.keyword_overlap.missing.length })}
               </p>
               <ul className="flex flex-wrap gap-2">
                 {result.keyword_overlap.missing.map((skill) => (
@@ -163,13 +188,13 @@ export function ResultView({ result }: { result: ScoreResponse }) {
       </motion.div>
 
       <motion.div variants={itemVariants}>
-        <ModuleCard title="Completeness" score={result.completeness.score}>
+        <ModuleCard title={t("completeness")} score={result.completeness.score}>
           <CheckList checks={result.completeness.checks} />
         </ModuleCard>
       </motion.div>
 
       <motion.div variants={itemVariants}>
-        <ModuleCard title="Formatting" score={result.formatting.score}>
+        <ModuleCard title={t("formatting")} score={result.formatting.score}>
           <CheckList checks={result.formatting.checks} />
         </ModuleCard>
       </motion.div>

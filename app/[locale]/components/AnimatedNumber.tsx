@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animate, useInView, useMotionValue, useMotionValueEvent } from "motion/react";
+import {
+  animate,
+  useInView,
+  useMotionValue,
+  useMotionValueEvent,
+} from "motion/react";
 
 export function AnimatedNumber({
   value,

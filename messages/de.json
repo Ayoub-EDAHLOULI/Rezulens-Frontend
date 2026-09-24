@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "title": "RezuLens — Transparente ATS-Lebenslaufbewertung",
+    "description": "Sehen Sie genau, warum Ihr Lebenslauf so bewertet wurde. Deterministische, regelbasierte Bewertung — keine KI im Prozess, nichts wird gespeichert."
+  },
+  "nav": {
+    "howItWorks": "So funktioniert's",
+    "scoreResume": "Lebenslauf bewerten",
+    "github": "GitHub",
+    "changeLanguage": "Sprache ändern"
+  },
+  "theme": {
+    "switchToLight": "Zu hellem Design wechseln",
+    "switchToDark": "Zu dunklem Design wechseln"
+  },
+  "menu": {
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen"
+  },
+  "scrollToTop": {
+    "label": "Nach oben scrollen"
+  },
+  "footer": {
+    "openSource": "RezuLens ist kostenlos und <link>Open Source</link>, lizenziert unter MIT.",
+    "tagline": "Keine Konten. Keine Speicherung. Keine KI bei der Bewertung."
+  },
+  "score": {
+    "title": "Lebenslauf bewerten",
+    "subtitle": "Lade einen Lebenslauf und eine Stellenbeschreibung hoch. Jeder Punkt lässt sich auf eine nachvollziehbare Regel zurückführen — Stichwort-Treffer, strukturelle Prüfungen, Formatierungsrisiken. Keine KI im Prozess, nichts wird gespeichert.",
+    "form": {
+      "resumeLabel": "Lebenslauf",
+      "chooseFile": "PDF oder DOCX auswählen oder hier ablegen",
+      "clickToReplace": "Klicken zum Ersetzen",
+      "parsedAndDiscarded": "Analysiert, bewertet und verworfen",
+      "jobDescriptionLabel": "Stellenbeschreibung",
+      "jobDescriptionPlaceholder": "Fügen Sie hier den vollständigen Text der Stellenanzeige ein…",
+      "scoring": "Bewertung läuft…",
+      "submit": "Lebenslauf bewerten"
+    },
+    "fileErrors": {
+      "wrongType": "„{filename}“ ist keine PDF- oder DOCX-Datei.",
+      "tooLarge": "„{filename}“ ist {size}MB groß — das Limit liegt bei {limit}MB."
+    },
+    "missingFields": {
+      "fileOnly": "Wählen Sie eine Lebenslauf-Datei aus, um fortzufahren.",
+      "both": "Wählen Sie eine Lebenslauf-Datei aus und fügen Sie eine Stellenbeschreibung ein, um fortzufahren.",
+      "jobDescriptionOnly": "Fügen Sie eine Stellenbeschreibung ein, um fortzufahren."
+    },
+    "errors": {
+      "unreachable": "Der Bewertungsdienst ist nicht erreichbar. Stellen Sie sicher, dass das Backend läuft, und versuchen Sie es erneut.",
+      "generic": "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuchen Sie es erneut."
+    },
+    "results": {
+      "breakdownLabel": "Bewertungsübersicht",
+      "overallOutOf100": "/ 100 gesamt",
+      "keywordOverlap": "Stichwort-Übereinstimmung",
+      "completeness": "Vollständigkeit",
+      "formatting": "Formatierung",
+      "weightTitle": "{module} — {percent}% der Gesamtbewertung",
+      "weightLabel": "{module} · {percent}%",
+      "matched": "Gefunden ({count})",
+      "missing": "Fehlend ({count})",
+      "foundIn": "Gefunden in „{section}“"
+    }
+  },
+  "home": {
+    "badge": "Kostenlos · Open Source",
+    "heroTitle": "Sehen Sie genau, warum Ihr Lebenslauf so bewertet wurde.",
+    "heroSubtitle": "Laden Sie einen Lebenslauf und eine Stellenbeschreibung hoch. Jeder Punkt lässt sich auf eine nachvollziehbare Regel zurückführen — Stichwort-Treffer, strukturelle Prüfungen, Formatierungsrisiken. Keine KI im Prozess, nichts wird gespeichert.",
+    "scoreYourResume": "Lebenslauf bewerten",
+    "seeHowScoringWorks": "So funktioniert die Bewertung",
+    "realScoreStartToFinish": "Eine echte Bewertung, von Anfang bis Ende",
+    "weightedFrom": "Gewichtet nach Stichwort-Übereinstimmung, Vollständigkeit und Formatierung",
+    "exampleResult": "Beispielergebnis",
+    "exampleResultSubtitle": "So sieht ein Lebenslauf aus, der gegen eine echte Stellenbeschreibung bewertet wurde.",
+    "illustrativeData": "Beispieldaten, keine echte Bewertung — testen Sie Ihre eigene unter",
+    "overallOutOf100": "/ 100 gesamt",
+    "whyNotJustUseAi": "Warum nicht einfach KI verwenden",
+    "comparisonSubtitle": "Die meisten Lebenslauf-Bewerter sind nur ein Prompt mit einer angehängten Zahl.",
+    "threeModulesOneScore": "Drei Module, eine gewichtete Bewertung",
+    "modules": {
+      "keywordOverlap": {
+        "name": "Stichwort-Übereinstimmung",
+        "description": "Enthält der Lebenslauf tatsächlich das, was die Stellenbeschreibung verlangt."
+      },
+      "completeness": {
+        "name": "Vollständigkeit",
+        "description": "Fehlende Abschnitte, fehlende Daten, fehlende Kontaktangaben, unquantifizierte Aufzählungspunkte."
+      },
+      "formatting": {
+        "name": "Formatierungswarnungen",
+        "description": "Layout und Struktur, an denen echte ATS-Parser scheitern."
+      },
+      "formattingShort": "Formatierung"
+    },
+    "example": {
+      "completeness": {
+        "check1": "Abschnitt „Kontakt“ ist vorhanden",
+        "check2": "Abschnitt Berufserfahrung enthält mindestens einen Zeitraum",
+        "check3": "keine E-Mail-Adresse im Kontaktabschnitt gefunden"
+      },
+      "formatting": {
+        "check1": "einspaltiges Layout, kein nebeneinander angeordneter Inhalt erkannt",
+        "check2": "nicht standardmäßige Abschnittsüberschrift(en) gefunden: Stärken"
+      }
+    },
+    "comparison": {
+      "row1": {
+        "ai": "Die Bewertung stammt aus einem Prompt — fragen Sie zweimal, erhalten Sie zwei unterschiedliche Zahlen.",
+        "rezulens": "Die Bewertung stammt aus festen Regeln — dieselbe Eingabe liefert immer dasselbe Ergebnis."
+      },
+      "row2": {
+        "ai": "„Warum habe ich eine 62 bekommen?“ hat keine echte Antwort — außer dem, was das Modell zufällig sagte.",
+        "rezulens": "Jeder Punkt lässt sich auf eine benannte Regel zurückführen, die Sie jetzt sofort im Quellcode nachlesen können."
+      },
+      "row3": {
+        "ai": "Ihr Lebenslauf wird an ein Drittanbieter-Modell gesendet, und was danach damit geschieht, liegt nicht mehr in Ihrer Hand.",
+        "rezulens": "Ihr Lebenslauf wird analysiert, bewertet und verworfen. Nichts wird gespeichert, nichts fließt in ein Training ein."
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "So funktioniert die Bewertung",
+    "subtitle": "Jede Bewertung gliedert sich in drei unabhängige Prüfungen, gewichtet und vollständig angezeigt. Nichts wird verborgen, und nichts wird von einem Sprachmodell erschlossen — jeder Punkt lässt sich auf eine Regel zurückführen, die Sie selbst nachlesen können.",
+    "weightedAverageIntro": "Die Gesamtbewertung ist genau dieser gewichtete Durchschnitt — nicht mehr. Diese Formel existiert als einfacher Code (",
+    "weightedAverageOutro": "im Backend), nicht als Aufruf eines Black-Box-Modells.",
+    "weightOfScore": "{weight} der Bewertung",
+    "traceHeading": "Einen einzelnen Punkt nachverfolgen",
+    "traceSubtitle": "Kein Beispiel für die Funktionsweise. Der tatsächliche Mechanismus, Schritt für Schritt.",
+    "noAiHeading": "Keine KI in der Bewertung",
+    "noAiBody": "Nichts davon wird von einem Sprachmodell erzeugt, zusammengefasst oder beurteilt. Die Bewertung und jeder Befund dahinter stammen aus deterministischen Regeln — dieselbe Eingabe liefert immer dasselbe Ergebnis, und jede Regel ist im Quellcode sichtbar. Ihr Lebenslauf wird analysiert, bewertet und verworfen; nichts wird gespeichert.",
+    "tryItOnYourResume": "An Ihrem eigenen Lebenslauf ausprobieren",
+    "modules": {
+      "keywordOverlap": {
+        "name": "Stichwort-Übereinstimmung",
+        "weightLabel": "50%",
+        "summary": "Das direkteste Signal für Eignung: Enthält der Lebenslauf tatsächlich das, was diese konkrete Stellenbeschreibung verlangt.",
+        "detail": "Sowohl der Lebenslauf als auch die Stellenbeschreibung durchlaufen denselben regelbasierten Stichwort-Extraktor — eine kuratierte Taxonomie von Fähigkeiten und Werkzeugen, abgeglichen per exaktem Text und unscharfen Varianten (so zählen „JavaScript“ und „JS“ als dieselbe Fähigkeit, aber „Java“ trifft nie stillschweigend innerhalb von „JavaScript“ zu). Jede von der Stellenbeschreibung geforderte Fähigkeit wird mit dem Lebenslauf abgeglichen, und jede Übereinstimmung oder Lücke wird namentlich aufgeführt.",
+        "example1": "„Python“ — gefunden, in der Sektion Fähigkeiten",
+        "example2": "„Docker“ — gefunden, in der Sektion Berufserfahrung",
+        "example3": "„Kubernetes“ — fehlt"
+      },
+      "completeness": {
+        "name": "Vollständigkeit",
+        "weightLabel": "25%",
+        "summary": "Ein sekundäres Qualitätssignal, unabhängig von einer bestimmten Stelle: Ist der Lebenslauf selbst wohlgeformt.",
+        "detail": "Eine feste Reihe struktureller Prüfungen — keine Interpretation, keine Bewertung von Schreibqualität oder Tonfall. Jede besteht oder scheitert.",
+        "example1": "„contact_has_email“ — im Kontaktabschnitt wurde eine echte E-Mail-Adresse gefunden",
+        "example2": "„experience_has_dates“ — mindestens ein Berufserfahrungseintrag hat einen Zeitraum",
+        "example3": "„bullets_quantified“ — mindestens die Hälfte der Erfahrungspunkte enthält eine Zahl"
+      },
+      "formatting": {
+        "name": "Formatierungswarnungen",
+        "weightLabel": "25%",
+        "summary": "Ein sekundäres Risikosignal für reale ATS-Analyse, unabhängig von einer bestimmten Stelle.",
+        "detail": "Prüft Layout-Entscheidungen, die bekanntermaßen echte Bewerbermanagementsysteme stören — nicht weil sie schlecht aussehen, sondern weil viele ATS-Parser von links nach rechts, oben nach unten lesen und Inhalte, die dieser Struktur nicht folgen, stillschweigend durcheinanderbringen oder verwerfen können.",
+        "example1": "„single_column_layout“ — kein mehrspaltiges oder tabellenbasiertes Layout erkannt",
+        "example2": "„standard_section_headers“ — jede Abschnittsüberschrift entspricht einem erkannten Namen",
+        "example3": "„no_embedded_images“ — kein Text ist in einem Bild versteckt, das der Parser nicht lesen kann"
+      }
+    },
+    "trace": {
+      "step1": {
+        "label": "Die Stellenbeschreibung sagt",
+        "content": "„...3+ Jahre Erfahrung mit AWS oder ähnlicher Cloud-Infrastruktur...“"
+      },
+      "step2": {
+        "label": "Der Extraktor sucht nach bekannten Begriffen",
+        "content": "Die Taxonomie führt „AWS“ als kanonische Fähigkeit mit dem Alias „Amazon Web Services“. Das Wort „AWS“ erscheint im Text mit einer sauberen Wortgrenze — nicht versteckt innerhalb eines anderen Wortes."
+      },
+      "step3": {
+        "label": "Exakte Übereinstimmung gefunden",
+        "content": "Regel: Wortgrenzen-Treffer auf „AWS“ → kanonische Fähigkeit AWS, zur Liste der erforderlichen Fähigkeiten der Stellenbeschreibung hinzugefügt."
+      },
+      "step4": {
+        "label": "Der Lebenslauf wird auf dieselbe Fähigkeit geprüft",
+        "content": "Der Abschnitt Fähigkeiten Ihres Lebenslaufs wird mit demselben Extraktor durchsucht. Erscheint „AWS“ oder einer seiner Aliase irgendwo in Fähigkeiten, Berufserfahrung oder Zusammenfassung, wird es als Treffer erfasst — zusammen mit dem Abschnitt, aus dem es stammt."
+      },
+      "step5": {
+        "label": "Ergebnis",
+        "content": "„AWS“ — gefunden, in der Sektion Berufserfahrung. Genau diese Zeile erscheint in Ihren Ergebnissen."
+      }
+    }
+  }
+}

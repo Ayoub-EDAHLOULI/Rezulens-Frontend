@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "title": "RezuLens — Évaluation transparente des CV pour ATS",
+    "description": "Découvrez exactement pourquoi votre CV a obtenu ce score. Évaluation déterministe basée sur des règles — aucune IA dans le processus, rien n'est conservé."
+  },
+  "nav": {
+    "howItWorks": "Comment ça marche",
+    "scoreResume": "Évaluer un CV",
+    "github": "GitHub",
+    "changeLanguage": "Changer de langue"
+  },
+  "theme": {
+    "switchToLight": "Passer au thème clair",
+    "switchToDark": "Passer au thème sombre"
+  },
+  "menu": {
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
+  },
+  "scrollToTop": {
+    "label": "Remonter en haut de la page"
+  },
+  "footer": {
+    "openSource": "RezuLens est gratuit et <link>open source</link>, sous licence MIT.",
+    "tagline": "Aucun compte. Aucun stockage. Aucune IA dans le score."
+  },
+  "score": {
+    "title": "Évaluez votre CV",
+    "subtitle": "Téléversez un CV et une offre d'emploi. Chaque point est justifié par une règle vérifiable — correspondances de mots-clés, vérifications structurelles, risques de mise en forme. Aucune IA dans le processus, rien n'est conservé.",
+    "form": {
+      "resumeLabel": "CV",
+      "chooseFile": "Choisissez ou déposez un PDF ou DOCX",
+      "clickToReplace": "Cliquez pour remplacer",
+      "parsedAndDiscarded": "Analysé, évalué, puis supprimé",
+      "jobDescriptionLabel": "Offre d'emploi",
+      "jobDescriptionPlaceholder": "Collez ici le texte complet de l'offre d'emploi…",
+      "scoring": "Évaluation…",
+      "submit": "Évaluer le CV"
+    },
+    "fileErrors": {
+      "wrongType": "« {filename} » n'est pas un fichier PDF ou DOCX.",
+      "tooLarge": "« {filename} » fait {size} Mo — la limite est de {limit} Mo."
+    },
+    "missingFields": {
+      "fileOnly": "Sélectionnez un fichier CV pour continuer.",
+      "both": "Sélectionnez un fichier CV et collez une offre d'emploi pour continuer.",
+      "jobDescriptionOnly": "Collez une offre d'emploi pour continuer."
+    },
+    "errors": {
+      "unreachable": "Impossible de joindre le service d'évaluation. Vérifiez que le serveur est bien démarré et réessayez.",
+      "generic": "Une erreur est survenue de notre côté. Veuillez réessayer."
+    },
+    "results": {
+      "breakdownLabel": "Détail du score",
+      "overallOutOf100": "/ 100 au total",
+      "keywordOverlap": "Correspondance des mots-clés",
+      "completeness": "Exhaustivité",
+      "formatting": "Mise en forme",
+      "weightTitle": "{module} — {percent}% du score total",
+      "weightLabel": "{module} · {percent}%",
+      "matched": "Trouvés ({count})",
+      "missing": "Manquants ({count})",
+      "foundIn": "Trouvé dans « {section} »"
+    }
+  },
+  "home": {
+    "badge": "Gratuit · Open source",
+    "heroTitle": "Voyez exactement pourquoi votre CV a obtenu ce score.",
+    "heroSubtitle": "Téléversez un CV et une offre d'emploi. Chaque point est justifié par une règle vérifiable — correspondances de mots-clés, vérifications structurelles, risques de mise en forme. Aucune IA dans le processus, rien n'est conservé.",
+    "scoreYourResume": "Évaluez votre CV",
+    "seeHowScoringWorks": "Voir comment fonctionne l'évaluation",
+    "realScoreStartToFinish": "Un vrai score, de bout en bout",
+    "weightedFrom": "Pondéré selon la correspondance des mots-clés, l'exhaustivité et la mise en forme",
+    "exampleResult": "Exemple de résultat",
+    "exampleResultSubtitle": "Voici à quoi ressemble un CV évalué face à une véritable offre d'emploi.",
+    "illustrativeData": "Données illustratives, pas un score réel — testez le vôtre sur",
+    "overallOutOf100": "/ 100 au total",
+    "whyNotJustUseAi": "Pourquoi ne pas simplement utiliser l'IA",
+    "comparisonSubtitle": "La plupart des évaluateurs de CV ne sont qu'un prompt avec un chiffre attaché.",
+    "threeModulesOneScore": "Trois modules, un score pondéré",
+    "modules": {
+      "keywordOverlap": {
+        "name": "Correspondance des mots-clés",
+        "description": "Le CV contient-il réellement ce que l'offre d'emploi demande."
+      },
+      "completeness": {
+        "name": "Exhaustivité",
+        "description": "Sections manquantes, dates manquantes, coordonnées manquantes, réalisations non chiffrées."
+      },
+      "formatting": {
+        "name": "Signaux de mise en forme",
+        "description": "Mise en page et structure sur lesquelles les vrais ATS achoppent."
+      },
+      "formattingShort": "Mise en forme"
+    },
+    "example": {
+      "completeness": {
+        "check1": "la section « contact » est présente",
+        "check2": "la section expérience contient au moins une période de dates",
+        "check3": "aucune adresse e-mail trouvée dans la section contact"
+      },
+      "formatting": {
+        "check1": "mise en page à une colonne, aucun contenu côte à côte détecté",
+        "check2": "en-tête(s) de section non standard détecté(s) : atouts"
+      }
+    },
+    "comparison": {
+      "row1": {
+        "ai": "Le score provient d'un prompt — demandez deux fois, obtenez deux chiffres différents.",
+        "rezulens": "Le score provient de règles fixes — la même entrée produit toujours le même résultat."
+      },
+      "row2": {
+        "ai": "« Pourquoi ai-je obtenu 62 ? » n'a pas de vraie réponse au-delà de ce que le modèle a bien voulu dire.",
+        "rezulens": "Chaque point renvoie à une règle nommée, lisible dans le code source, dès maintenant."
+      },
+      "row3": {
+        "ai": "Votre CV est envoyé à un modèle tiers, et ce qu'il en advient ensuite ne dépend plus de vous.",
+        "rezulens": "Votre CV est analysé, évalué, puis supprimé. Rien n'est conservé, rien ne sert à entraîner un modèle."
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "Comment fonctionne l'évaluation",
+    "subtitle": "Chaque score se décompose en trois vérifications indépendantes, pondérées et affichées intégralement. Rien n'est caché, et rien n'est déduit par un modèle de langage — chaque point remonte à une règle que vous pouvez lire vous-même.",
+    "weightedAverageIntro": "Le score global est cette moyenne pondérée — rien de plus. Cette formule existe sous forme de code brut (",
+    "weightedAverageOutro": "dans le backend), et non d'un appel à un modèle boîte noire.",
+    "weightOfScore": "{weight} du score",
+    "traceHeading": "Suivre un point à la trace",
+    "traceSubtitle": "Pas un exemple de fonctionnement. Le mécanisme réel, étape par étape.",
+    "noAiHeading": "Aucune IA dans le score",
+    "noAiBody": "Rien de ce qui précède n'est généré, résumé ou jugé par un modèle de langage. Le score et chaque constat qui le compose proviennent de règles déterministes — la même entrée produit toujours le même résultat, et chaque règle est visible dans le code source. Votre CV est analysé, évalué, puis supprimé ; rien n'est conservé.",
+    "tryItOnYourResume": "Essayez avec votre CV",
+    "modules": {
+      "keywordOverlap": {
+        "name": "Correspondance des mots-clés",
+        "weightLabel": "50%",
+        "summary": "Le signal le plus direct de pertinence : le CV contient-il réellement ce que cette offre d'emploi spécifique demande.",
+        "detail": "Le CV et l'offre d'emploi passent tous deux par le même extracteur de mots-clés basé sur des règles — une taxonomie organisée de compétences et d'outils, comparée par correspondance exacte et par variantes approximatives (ainsi, « JavaScript » et « JS » comptent comme la même compétence, mais « Java » ne correspond jamais silencieusement à l'intérieur de « JavaScript »). Chaque compétence demandée par l'offre d'emploi est vérifiée par rapport au CV, et chaque correspondance ou lacune est listée par son nom.",
+        "example1": "« Python » — trouvé, présent dans la section Compétences",
+        "example2": "« Docker » — trouvé, présent dans la section Expérience",
+        "example3": "« Kubernetes » — manquant"
+      },
+      "completeness": {
+        "name": "Exhaustivité",
+        "weightLabel": "25%",
+        "summary": "Un signal de qualité secondaire, indépendant de toute offre spécifique : le CV est-il lui-même bien formé.",
+        "detail": "Un ensemble fixe de vérifications structurelles — aucune interprétation, aucune notation sur la qualité rédactionnelle ou le ton. Chacune réussit ou échoue.",
+        "example1": "« contact_has_email » — une adresse e-mail valide a été trouvée dans la section contact",
+        "example2": "« experience_has_dates » — au moins une expérience professionnelle comporte une période de dates",
+        "example3": "« bullets_quantified » — au moins la moitié des points d'expérience contiennent un chiffre"
+      },
+      "formatting": {
+        "name": "Signaux de mise en forme",
+        "weightLabel": "25%",
+        "summary": "Un signal de risque secondaire pour l'analyse réelle par les ATS, indépendant de toute offre spécifique.",
+        "detail": "Vérifie les choix de mise en page connus pour perturber les vrais systèmes de suivi des candidatures — non pas parce qu'ils paraissent mauvais, mais parce que de nombreux analyseurs ATS lisent de gauche à droite, de haut en bas, et peuvent silencieusement mélanger ou supprimer un contenu qui ne suit pas cette structure.",
+        "example1": "« single_column_layout » — aucune mise en page multi-colonnes ou basée sur des tableaux détectée",
+        "example2": "« standard_section_headers » — chaque en-tête de section correspond à un nom reconnu",
+        "example3": "« no_embedded_images » — aucun texte n'est caché à l'intérieur d'une image que l'analyseur ne peut pas lire"
+      }
+    },
+    "trace": {
+      "step1": {
+        "label": "L'offre d'emploi indique",
+        "content": "« ...3 ans ou plus d'expérience avec AWS ou une infrastructure cloud similaire... »"
+      },
+      "step2": {
+        "label": "L'extracteur recherche des termes connus",
+        "content": "La taxonomie répertorie « AWS » comme compétence canonique, avec l'alias « Amazon Web Services ». Le mot « AWS » apparaît dans le texte avec une limite de mot nette — il n'est pas enfoui dans un autre mot."
+      },
+      "step3": {
+        "label": "Correspondance exacte trouvée",
+        "content": "Règle : correspondance sur limite de mot pour « AWS » → compétence canonique AWS, ajoutée à la liste des compétences requises de l'offre d'emploi."
+      },
+      "step4": {
+        "label": "Le CV est vérifié pour la même compétence",
+        "content": "La section Compétences de votre CV est analysée avec le même extracteur. Si « AWS » ou l'un de ses alias apparaît n'importe où dans Compétences, Expérience ou Résumé, c'est enregistré comme trouvé — avec la section d'où cela provient."
+      },
+      "step5": {
+        "label": "Résultat",
+        "content": "« AWS » — trouvé, présent dans la section Expérience. C'est exactement cette ligne qui apparaît dans vos résultats."
+      }
+    }
+  }
+}

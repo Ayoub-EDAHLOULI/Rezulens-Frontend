@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
+import { hasLocale } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
+import { routing } from "../../i18n/routing";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import ScrollToTop from "./components/ScrollToTop";
 import "./globals.css";
+
+const RTL_LOCALES = new Set(["ar"]);
 
 // Runs before paint to apply any saved theme preference immediately —
 // avoids a flash from the system-default theme to the saved one. Inline and
@@ -29,16 +36,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "RezuLens — Transparent ATS Resume Scoring",
-  description:
-    "See exactly why your resume scored what it scored. Deterministic, rule-based resume scoring — no AI in the loop, nothing stored.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({
+  children,
+  params,
+}: LayoutProps<"/[locale]">) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={RTL_LOCALES.has(locale) ? "rtl" : "ltr"}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       // The inline script below sets data-theme on this element before React
       // hydrates, based on a saved preference the server can't know about —
@@ -47,13 +65,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+        />
       </head>
       <body className="flex min-h-full flex-col">
-        <Navbar />
-        <main className="flex flex-1 flex-col">{children}</main>
-        <Footer />
-        <ScrollToTop />
+        <NextIntlClientProvider>
+          <Navbar />
+          <main className="flex flex-1 flex-col">{children}</main>
+          <Footer />
+          <ScrollToTop />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

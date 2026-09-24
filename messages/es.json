@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "title": "RezuLens — Evaluación transparente de currículums para ATS",
+    "description": "Descubre exactamente por qué tu currículum obtuvo esa puntuación. Evaluación determinista basada en reglas — sin IA en el proceso, no se guarda nada."
+  },
+  "nav": {
+    "howItWorks": "Cómo funciona",
+    "scoreResume": "Evaluar un currículum",
+    "github": "GitHub",
+    "changeLanguage": "Cambiar idioma"
+  },
+  "theme": {
+    "switchToLight": "Cambiar a tema claro",
+    "switchToDark": "Cambiar a tema oscuro"
+  },
+  "menu": {
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "scrollToTop": {
+    "label": "Volver arriba"
+  },
+  "footer": {
+    "openSource": "RezuLens es gratuito y de <link>código abierto</link>, bajo licencia MIT.",
+    "tagline": "Sin cuentas. Sin almacenamiento. Sin IA en la puntuación."
+  },
+  "score": {
+    "title": "Evalúa tu currículum",
+    "subtitle": "Sube un currículum y una oferta de empleo. Cada punto se justifica con una regla que puedes inspeccionar: coincidencias de palabras clave, comprobaciones estructurales, riesgos de formato. Sin IA en el proceso, no se guarda nada.",
+    "form": {
+      "resumeLabel": "Currículum",
+      "chooseFile": "Elige o arrastra un PDF o DOCX",
+      "clickToReplace": "Haz clic para reemplazar",
+      "parsedAndDiscarded": "Analizado, evaluado y descartado",
+      "jobDescriptionLabel": "Oferta de empleo",
+      "jobDescriptionPlaceholder": "Pega aquí el texto completo de la oferta de empleo…",
+      "scoring": "Evaluando…",
+      "submit": "Evaluar currículum"
+    },
+    "fileErrors": {
+      "wrongType": "«{filename}» no es un archivo PDF ni DOCX.",
+      "tooLarge": "«{filename}» pesa {size}MB — el límite es {limit}MB."
+    },
+    "missingFields": {
+      "fileOnly": "Selecciona un archivo de currículum para continuar.",
+      "both": "Selecciona un archivo de currículum y pega una oferta de empleo para continuar.",
+      "jobDescriptionOnly": "Pega una oferta de empleo para continuar."
+    },
+    "errors": {
+      "unreachable": "No se puede contactar con el servicio de evaluación. Asegúrate de que el backend esté en marcha e inténtalo de nuevo.",
+      "generic": "Algo salió mal de nuestro lado. Inténtalo de nuevo."
+    },
+    "results": {
+      "breakdownLabel": "Desglose de la puntuación",
+      "overallOutOf100": "/ 100 en total",
+      "keywordOverlap": "Coincidencia de palabras clave",
+      "completeness": "Completitud",
+      "formatting": "Formato",
+      "weightTitle": "{module} — {percent}% de la puntuación total",
+      "weightLabel": "{module} · {percent}%",
+      "matched": "Coincidencias ({count})",
+      "missing": "Faltantes ({count})",
+      "foundIn": "Encontrado en «{section}»"
+    }
+  },
+  "home": {
+    "badge": "Gratis · Código abierto",
+    "heroTitle": "Descubre exactamente por qué tu currículum obtuvo esa puntuación.",
+    "heroSubtitle": "Sube un currículum y una oferta de empleo. Cada punto se justifica con una regla que puedes inspeccionar: coincidencias de palabras clave, comprobaciones estructurales, riesgos de formato. Sin IA en el proceso, no se guarda nada.",
+    "scoreYourResume": "Evalúa tu currículum",
+    "seeHowScoringWorks": "Ver cómo funciona la evaluación",
+    "realScoreStartToFinish": "Una puntuación real, de principio a fin",
+    "weightedFrom": "Ponderado según la coincidencia de palabras clave, la completitud y el formato",
+    "exampleResult": "Resultado de ejemplo",
+    "exampleResultSubtitle": "Así se ve un currículum evaluado frente a una oferta de empleo real.",
+    "illustrativeData": "Datos ilustrativos, no una puntuación real — prueba el tuyo en",
+    "overallOutOf100": "/ 100 en total",
+    "whyNotJustUseAi": "Por qué no simplemente usar IA",
+    "comparisonSubtitle": "La mayoría de los evaluadores de currículums son solo un prompt con un número adjunto.",
+    "threeModulesOneScore": "Tres módulos, una puntuación ponderada",
+    "modules": {
+      "keywordOverlap": {
+        "name": "Coincidencia de palabras clave",
+        "description": "Si el currículum realmente contiene lo que pide la oferta de empleo."
+      },
+      "completeness": {
+        "name": "Completitud",
+        "description": "Secciones, fechas o datos de contacto faltantes, logros sin cuantificar."
+      },
+      "formatting": {
+        "name": "Señales de formato",
+        "description": "Diseño y estructura con los que los ATS reales tropiezan."
+      },
+      "formattingShort": "Formato"
+    },
+    "example": {
+      "completeness": {
+        "check1": "la sección «contacto» está presente",
+        "check2": "la sección de experiencia contiene al menos un rango de fechas",
+        "check3": "no se encontró correo electrónico en la sección de contacto"
+      },
+      "formatting": {
+        "check1": "diseño de una columna, sin contenido en paralelo detectado",
+        "check2": "encabezado(s) de sección no estándar encontrado(s): fortalezas"
+      }
+    },
+    "comparison": {
+      "row1": {
+        "ai": "La puntuación proviene de un prompt — pregunta dos veces y obtén dos números distintos.",
+        "rezulens": "La puntuación proviene de reglas fijas — la misma entrada siempre produce el mismo resultado."
+      },
+      "row2": {
+        "ai": "«¿Por qué obtuve un 62?» no tiene una respuesta real más allá de lo que el modelo quiso decir.",
+        "rezulens": "Cada punto se remonta a una regla con nombre que puedes leer en el código fuente, ahora mismo."
+      },
+      "row3": {
+        "ai": "Tu currículum se envía a un modelo de terceros, y lo que ocurra con él después ya no depende de ti.",
+        "rezulens": "Tu currículum se analiza, se evalúa y se descarta. No se guarda nada, nada se usa para entrenar modelos."
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "Cómo funciona la evaluación",
+    "subtitle": "Cada puntuación se descompone en tres comprobaciones independientes, ponderadas y mostradas en su totalidad. Nada se oculta, y nada lo infiere un modelo de lenguaje — cada punto se remonta a una regla que puedes leer tú mismo.",
+    "weightedAverageIntro": "La puntuación general es esta media ponderada — nada más. Esa fórmula existe como código sencillo (",
+    "weightedAverageOutro": "en el backend), no como una llamada a un modelo de caja negra.",
+    "weightOfScore": "{weight} de la puntuación",
+    "traceHeading": "Sigue un punto paso a paso",
+    "traceSubtitle": "No es un ejemplo de cómo funciona. Es el mecanismo real, paso a paso.",
+    "noAiHeading": "Sin IA en la puntuación",
+    "noAiBody": "Nada de lo anterior es generado, resumido ni juzgado por un modelo de lenguaje. La puntuación y cada hallazgo detrás de ella provienen de reglas deterministas — la misma entrada siempre produce la misma salida, y cada regla es visible en el código fuente. Tu currículum se analiza, se evalúa y se descarta; no se guarda nada.",
+    "tryItOnYourResume": "Pruébalo con tu currículum",
+    "modules": {
+      "keywordOverlap": {
+        "name": "Coincidencia de palabras clave",
+        "weightLabel": "50%",
+        "summary": "La señal más directa de idoneidad: si el currículum realmente contiene lo que pide esta oferta de empleo en concreto.",
+        "detail": "Tanto el currículum como la oferta de empleo pasan por el mismo extractor de palabras clave basado en reglas — una taxonomía curada de habilidades y herramientas, comparada mediante coincidencia exacta y variantes aproximadas (así, «JavaScript» y «JS» cuentan como la misma habilidad, pero «Java» nunca coincide silenciosamente dentro de «JavaScript»). Cada habilidad que pide la oferta de empleo se compara con el currículum, y cada coincidencia o vacío se enumera por su nombre.",
+        "example1": "«Python» — coincide, encontrado en la sección Habilidades",
+        "example2": "«Docker» — coincide, encontrado en la sección Experiencia",
+        "example3": "«Kubernetes» — falta"
+      },
+      "completeness": {
+        "name": "Completitud",
+        "weightLabel": "25%",
+        "summary": "Una señal de calidad secundaria, independiente de cualquier oferta específica: si el propio currículum está bien formado.",
+        "detail": "Un conjunto fijo de comprobaciones estructurales — sin interpretación, sin puntuar la calidad de la redacción ni el tono. Cada una se aprueba o se falla.",
+        "example1": "«contact_has_email» — se encontró una dirección de correo electrónico real en la sección de contacto",
+        "example2": "«experience_has_dates» — al menos una entrada laboral tiene un rango de fechas",
+        "example3": "«bullets_quantified» — al menos la mitad de los puntos de experiencia contienen un número"
+      },
+      "formatting": {
+        "name": "Señales de formato",
+        "weightLabel": "25%",
+        "summary": "Una señal de riesgo secundaria para el análisis real por parte de los ATS, independiente de cualquier oferta específica.",
+        "detail": "Comprueba decisiones de maquetación que se sabe que rompen los sistemas de seguimiento de candidatos reales — no porque se vean mal, sino porque muchos analizadores de ATS leen de izquierda a derecha, de arriba abajo, y pueden mezclar o descartar silenciosamente contenido que no sigue esa forma.",
+        "example1": "«single_column_layout» — no se detectó maquetación multicolumna ni basada en tablas",
+        "example2": "«standard_section_headers» — cada encabezado de sección coincide con un nombre reconocido",
+        "example3": "«no_embedded_images» — no hay texto oculto dentro de una imagen que el analizador no pueda leer"
+      }
+    },
+    "trace": {
+      "step1": {
+        "label": "La oferta de empleo dice",
+        "content": "«...3 o más años de experiencia con AWS o infraestructura en la nube similar...»"
+      },
+      "step2": {
+        "label": "El extractor busca términos conocidos",
+        "content": "La taxonomía tiene «AWS» como habilidad canónica con el alias «Amazon Web Services». La palabra «AWS» aparece en el texto con un límite de palabra claro — no está oculta dentro de otra palabra."
+      },
+      "step3": {
+        "label": "Coincidencia exacta encontrada",
+        "content": "Regla: coincidencia de límite de palabra en «AWS» → habilidad canónica AWS, añadida a la lista de habilidades requeridas de la oferta de empleo."
+      },
+      "step4": {
+        "label": "Se comprueba si el currículum tiene la misma habilidad",
+        "content": "La sección Habilidades de tu currículum se analiza con el extractor idéntico. Si «AWS» o cualquiera de sus alias aparece en cualquier parte de Habilidades, Experiencia o Resumen, se registra como coincidencia — junto con la sección de la que proviene."
+      },
+      "step5": {
+        "label": "Resultado",
+        "content": "«AWS» — coincide, encontrado en la sección Experiencia. Esta línea exacta es la que aparece en tus resultados."
+      }
+    }
+  }
+}

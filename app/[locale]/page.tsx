@@ -1,61 +1,61 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "../../i18n/navigation";
 import { AnimatedNumber } from "./components/AnimatedNumber";
 import { Reveal, RevealGroup, RevealItem } from "./components/Reveal";
 
-const MODULES = [
-  {
-    name: "Keyword overlap",
-    weight: "50%",
-    description: "Does the resume actually contain what this job description asks for.",
-  },
-  {
-    name: "Completeness",
-    weight: "25%",
-    description: "Missing sections, missing dates, missing contact info, unquantified bullets.",
-  },
-  {
-    name: "Formatting red flags",
-    weight: "25%",
-    description: "Layout and structure that real ATS parsers choke on.",
-  },
-];
-
 const EXAMPLE = {
   overallScore: 78,
-  keywordOverlap: { score: 82, matched: ["Python", "SQL", "AWS", "Docker"], missing: ["Kubernetes"] },
+  keywordOverlap: {
+    score: 82,
+    matched: ["Python", "SQL", "AWS", "Docker"],
+    missing: ["Kubernetes"],
+  },
   completeness: {
     score: 89,
-    checks: [
-      { passed: true, detail: "'contact' section is present" },
-      { passed: true, detail: "experience section contains at least one date range" },
-      { passed: false, detail: "no email address found in contact section" },
-    ],
   },
   formatting: {
     score: 67,
-    checks: [
-      { passed: true, detail: "single-column layout, no side-by-side content detected" },
-      { passed: false, detail: "non-standard section header(s) found: strengths" },
-    ],
   },
 };
 
-const COMPARISON = [
-  {
-    ai: "Score comes from a prompt — ask twice, get two different numbers.",
-    rezulens: "Score comes from fixed rules — the same input always produces the same output.",
-  },
-  {
-    ai: "\"Why did I get a 62?\" has no real answer beyond what the model felt like saying.",
-    rezulens: "Every point traces to a named rule you can read in the source, right now.",
-  },
-  {
-    ai: "Your resume is sent to a third-party model, and what happens to it next isn't up to you.",
-    rezulens: "Your resume is parsed, scored, and discarded. Nothing is stored, nothing leaves for training.",
-  },
-];
-
 export default function Home() {
+  const t = useTranslations("home");
+
+  const modules = [
+    {
+      name: t("modules.keywordOverlap.name"),
+      weight: "50%",
+      description: t("modules.keywordOverlap.description"),
+    },
+    {
+      name: t("modules.completeness.name"),
+      weight: "25%",
+      description: t("modules.completeness.description"),
+    },
+    {
+      name: t("modules.formatting.name"),
+      weight: "25%",
+      description: t("modules.formatting.description"),
+    },
+  ];
+
+  const completenessChecks = [
+    { passed: true, detail: t("example.completeness.check1") },
+    { passed: true, detail: t("example.completeness.check2") },
+    { passed: false, detail: t("example.completeness.check3") },
+  ];
+
+  const formattingChecks = [
+    { passed: true, detail: t("example.formatting.check1") },
+    { passed: false, detail: t("example.formatting.check2") },
+  ];
+
+  const comparison = [
+    { ai: t("comparison.row1.ai"), rezulens: t("comparison.row1.rezulens") },
+    { ai: t("comparison.row2.ai"), rezulens: t("comparison.row2.rezulens") },
+    { ai: t("comparison.row3.ai"), rezulens: t("comparison.row3.rezulens") },
+  ];
+
   return (
     <div className="flex flex-1 flex-col">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-28 px-4 py-16 sm:px-6 sm:py-24">
@@ -63,28 +63,26 @@ export default function Home() {
           <Reveal>
             <div className="flex flex-col gap-6">
               <span className="w-fit rounded-full bg-accent-soft px-3 py-1 font-mono text-xs uppercase tracking-widest text-accent">
-                Free · Open source
+                {t("badge")}
               </span>
               <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
-                See exactly why your resume scored what it scored.
+                {t("heroTitle")}
               </h1>
               <p className="max-w-prose text-lg text-muted leading-relaxed">
-                Upload a resume and a job description. Every point is traced to a
-                rule you can inspect — keyword matches, structural checks,
-                formatting risks. No AI in the loop, nothing stored.
+                {t("heroSubtitle")}
               </p>
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
                   href="/score"
                   className="rounded-lg bg-accent px-6 py-3 font-medium text-accent-foreground transition-opacity hover:opacity-90"
                 >
-                  Score your resume
+                  {t("scoreYourResume")}
                 </Link>
                 <Link
                   href="/how-it-works"
                   className="text-sm font-medium text-muted transition-colors hover:text-foreground"
                 >
-                  See how scoring works →
+                  {t("seeHowScoringWorks")} →
                 </Link>
               </div>
             </div>
@@ -93,7 +91,7 @@ export default function Home() {
           <Reveal delay={0.15}>
             <div className="flex flex-col items-center gap-3 rounded-2xl border border-line bg-surface p-10">
               <span className="font-mono text-xs uppercase tracking-widest text-muted">
-                A real score, start to finish
+                {t("realScoreStartToFinish")}
               </span>
               <div className="flex items-baseline gap-2">
                 <AnimatedNumber
@@ -108,7 +106,7 @@ export default function Home() {
                 <div className="bg-accent/30" style={{ width: "25%" }} />
               </div>
               <span className="text-center text-xs text-muted">
-                Weighted from keyword overlap, completeness, and formatting
+                {t("weightedFrom")}
               </span>
             </div>
           </Reveal>
@@ -118,14 +116,17 @@ export default function Home() {
           <Reveal>
             <div className="flex flex-col gap-3 text-center">
               <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
-                Example result
+                {t("exampleResult")}
               </h2>
               <p className="mx-auto max-w-xl text-2xl font-semibold tracking-tight text-balance">
-                A resume scored against a real job description looks like this.
+                {t("exampleResultSubtitle")}
               </p>
               <p className="mx-auto max-w-prose text-sm text-muted">
-                Illustrative data, not a live score — run your own at{" "}
-                <Link href="/score" className="text-accent underline underline-offset-4">
+                {t("illustrativeData")}{" "}
+                <Link
+                  href="/score"
+                  className="text-accent underline underline-offset-4"
+                >
                   /score
                 </Link>
                 .
@@ -141,7 +142,7 @@ export default function Home() {
                     value={EXAMPLE.overallScore}
                     className="font-mono text-5xl font-semibold tabular-nums"
                   />
-                  <span className="text-muted">/ 100 overall</span>
+                  <span className="text-muted">{t("overallOutOf100")}</span>
                 </div>
                 <div className="flex h-2 overflow-hidden rounded-full bg-background">
                   <div className="bg-accent" style={{ width: "50%" }} />
@@ -149,16 +150,19 @@ export default function Home() {
                   <div className="bg-accent/30" style={{ width: "25%" }} />
                 </div>
                 <div className="flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs text-muted">
-                  <span>Keyword overlap · 50%</span>
-                  <span>Completeness · 25%</span>
-                  <span>Formatting · 25%</span>
+                  <span>{modules[0].name} · 50%</span>
+                  <span>{modules[1].name} · 25%</span>
+                  <span>{t("modules.formattingShort")} · 25%</span>
                 </div>
               </div>
             </RevealItem>
 
             <div className="grid gap-6 sm:grid-cols-3">
               <RevealItem>
-                <ExampleCard title="Keyword overlap" score={EXAMPLE.keywordOverlap.score}>
+                <ExampleCard
+                  title={modules[0].name}
+                  score={EXAMPLE.keywordOverlap.score}
+                >
                   <div className="flex flex-wrap gap-1.5">
                     {EXAMPLE.keywordOverlap.matched.map((skill) => (
                       <span
@@ -181,14 +185,20 @@ export default function Home() {
               </RevealItem>
 
               <RevealItem>
-                <ExampleCard title="Completeness" score={EXAMPLE.completeness.score}>
-                  <ExampleChecks checks={EXAMPLE.completeness.checks} />
+                <ExampleCard
+                  title={modules[1].name}
+                  score={EXAMPLE.completeness.score}
+                >
+                  <ExampleChecks checks={completenessChecks} />
                 </ExampleCard>
               </RevealItem>
 
               <RevealItem>
-                <ExampleCard title="Formatting" score={EXAMPLE.formatting.score}>
-                  <ExampleChecks checks={EXAMPLE.formatting.checks} />
+                <ExampleCard
+                  title={t("modules.formattingShort")}
+                  score={EXAMPLE.formatting.score}
+                >
+                  <ExampleChecks checks={formattingChecks} />
                 </ExampleCard>
               </RevealItem>
             </div>
@@ -199,23 +209,25 @@ export default function Home() {
           <Reveal>
             <div className="flex flex-col gap-3 text-center">
               <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
-                Why not just use AI
+                {t("whyNotJustUseAi")}
               </h2>
               <p className="mx-auto max-w-xl text-2xl font-semibold tracking-tight text-balance">
-                Most resume scorers are a prompt with a number attached.
+                {t("comparisonSubtitle")}
               </p>
             </div>
           </Reveal>
 
           <RevealGroup className="flex flex-col gap-4" stagger={0.08}>
-            {COMPARISON.map((row) => (
+            {comparison.map((row) => (
               <RevealItem key={row.ai}>
                 <div className="grid gap-4 rounded-xl border border-line bg-surface p-5 sm:grid-cols-2 sm:p-6">
                   <div className="flex gap-3">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-bad-bg text-[11px] font-bold text-bad">
                       ✗
                     </span>
-                    <p className="text-sm text-muted leading-relaxed">{row.ai}</p>
+                    <p className="text-sm text-muted leading-relaxed">
+                      {row.ai}
+                    </p>
                   </div>
                   <div className="flex gap-3">
                     <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-good-bg text-[11px] font-bold text-good">
@@ -232,11 +244,11 @@ export default function Home() {
         <section className="flex flex-col gap-6">
           <Reveal>
             <h2 className="font-mono text-xs uppercase tracking-widest text-muted">
-              Three modules, one weighted score
+              {t("threeModulesOneScore")}
             </h2>
           </Reveal>
           <RevealGroup className="grid gap-4 sm:grid-cols-3" stagger={0.1}>
-            {MODULES.map((mod) => (
+            {modules.map((mod) => (
               <RevealItem key={mod.name}>
                 <div className="flex h-full flex-col gap-2 rounded-xl border border-line bg-surface p-5">
                   <div className="flex items-baseline justify-between">
@@ -271,14 +283,20 @@ function ExampleCard({
     <div className="flex h-full flex-col gap-3 rounded-xl border border-line bg-surface p-5">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-medium">{title}</h3>
-        <span className="font-mono text-xs tabular-nums text-muted">{score}/100</span>
+        <span className="font-mono text-xs tabular-nums text-muted">
+          {score}/100
+        </span>
       </div>
       {children}
     </div>
   );
 }
 
-function ExampleChecks({ checks }: { checks: { passed: boolean; detail: string }[] }) {
+function ExampleChecks({
+  checks,
+}: {
+  checks: { passed: boolean; detail: string }[];
+}) {
   return (
     <ul className="flex flex-col gap-1.5">
       {checks.map((c) => (

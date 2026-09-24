@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
@@ -40,6 +41,7 @@ function applyTheme(next: Theme) {
 }
 
 export default function ThemeToggle() {
+  const t = useTranslations("theme");
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   function toggle() {
@@ -51,9 +53,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={
-        theme === "dark" ? "Switch to light theme" : "Switch to dark theme"
-      }
+      aria-label={theme === "dark" ? t("switchToLight") : t("switchToDark")}
       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-line text-foreground transition-colors hover:border-accent"
     >
       {theme === "dark" ? (

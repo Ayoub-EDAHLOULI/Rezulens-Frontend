@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "title": "RezuLens — 透明的 ATS 简历评分",
+    "description": "清楚了解你的简历为何得到这个分数。确定性、基于规则的简历评分——全程不使用 AI，不保存任何数据。"
+  },
+  "nav": {
+    "howItWorks": "工作原理",
+    "scoreResume": "评估简历",
+    "github": "GitHub",
+    "changeLanguage": "切换语言"
+  },
+  "theme": {
+    "switchToLight": "切换到浅色主题",
+    "switchToDark": "切换到深色主题"
+  },
+  "menu": {
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单"
+  },
+  "scrollToTop": {
+    "label": "回到顶部"
+  },
+  "footer": {
+    "openSource": "RezuLens 是免费的<link>开源</link>项目，采用 MIT 许可证。",
+    "tagline": "无需账户。不存储数据。评分不使用 AI。"
+  },
+  "score": {
+    "title": "评估你的简历",
+    "subtitle": "上传简历和职位描述。每一项得分都可追溯到可查看的具体规则——关键词匹配、结构检查、格式风险。全程不使用 AI，不保存任何数据。",
+    "form": {
+      "resumeLabel": "简历",
+      "chooseFile": "选择或拖放 PDF 或 DOCX 文件",
+      "clickToReplace": "点击以替换",
+      "parsedAndDiscarded": "解析、评分后即丢弃",
+      "jobDescriptionLabel": "职位描述",
+      "jobDescriptionPlaceholder": "在此粘贴完整的职位描述文本…",
+      "scoring": "评估中…",
+      "submit": "评估简历"
+    },
+    "fileErrors": {
+      "wrongType": "“{filename}” 不是 PDF 或 DOCX 文件。",
+      "tooLarge": "“{filename}” 大小为 {size}MB，超过了 {limit}MB 的限制。"
+    },
+    "missingFields": {
+      "fileOnly": "请选择一份简历文件以继续。",
+      "both": "请选择一份简历文件并粘贴职位描述以继续。",
+      "jobDescriptionOnly": "请粘贴职位描述以继续。"
+    },
+    "errors": {
+      "unreachable": "无法连接评分服务，请确认后端正在运行后重试。",
+      "generic": "出现了一些问题，请重试。"
+    },
+    "results": {
+      "breakdownLabel": "评分详情",
+      "overallOutOf100": "/ 100 总分",
+      "keywordOverlap": "关键词匹配",
+      "completeness": "完整性",
+      "formatting": "格式规范",
+      "weightTitle": "{module} — 占总分的 {percent}%",
+      "weightLabel": "{module} · {percent}%",
+      "matched": "已匹配（{count}）",
+      "missing": "缺失（{count}）",
+      "foundIn": "在“{section}”中找到"
+    }
+  },
+  "home": {
+    "badge": "免费 · 开源",
+    "heroTitle": "清楚了解你的简历为何得到这个分数。",
+    "heroSubtitle": "上传简历和职位描述。每一项得分都可追溯到可查看的具体规则——关键词匹配、结构检查、格式风险。全程不使用 AI，不保存任何数据。",
+    "scoreYourResume": "评估你的简历",
+    "seeHowScoringWorks": "查看评分原理",
+    "realScoreStartToFinish": "真实评分，全程透明",
+    "weightedFrom": "根据关键词匹配、完整性和格式加权计算",
+    "exampleResult": "示例结果",
+    "exampleResultSubtitle": "简历与真实职位描述比对后的效果如下。",
+    "illustrativeData": "示例数据，非实时评分——在此处运行你自己的评估：",
+    "overallOutOf100": "/ 100 总分",
+    "whyNotJustUseAi": "为什么不直接用 AI",
+    "comparisonSubtitle": "大多数简历评分工具，不过是加了个数字的提示词。",
+    "threeModulesOneScore": "三个模块，一个加权总分",
+    "modules": {
+      "keywordOverlap": {
+        "name": "关键词匹配",
+        "description": "简历是否真正包含该职位描述所要求的内容。"
+      },
+      "completeness": {
+        "name": "完整性",
+        "description": "缺失的板块、日期、联系方式，以及未量化的工作要点。"
+      },
+      "formatting": {
+        "name": "格式风险提示",
+        "description": "真实 ATS 解析器难以处理的排版与结构。"
+      },
+      "formattingShort": "格式规范"
+    },
+    "example": {
+      "completeness": {
+        "check1": "存在“联系方式”板块",
+        "check2": "工作经历板块至少包含一个日期区间",
+        "check3": "联系方式板块中未找到电子邮箱"
+      },
+      "formatting": {
+        "check1": "单栏布局，未检测到并排内容",
+        "check2": "发现非标准板块标题：优势"
+      }
+    },
+    "comparison": {
+      "row1": {
+        "ai": "分数来自提示词——问两次，得到两个不同的数字。",
+        "rezulens": "分数来自固定规则——相同的输入始终产生相同的结果。"
+      },
+      "row2": {
+        "ai": "“为什么我得了 62 分？”除了模型当时想说的内容外，没有真正的答案。",
+        "rezulens": "每一分都可追溯到一条具名规则，现在就能在源码中查看。"
+      },
+      "row3": {
+        "ai": "你的简历被发送给第三方模型，之后会发生什么已不由你掌控。",
+        "rezulens": "你的简历经过解析、评分后即被丢弃。不存储任何数据，也不用于训练模型。"
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "评分原理",
+    "subtitle": "每个分数都拆分为三项独立检查，分别加权并完整展示。没有任何隐藏内容，也没有任何内容由语言模型推断——每一分都能追溯到一条你可以自行查看的规则。",
+    "weightedAverageIntro": "总分正是这个加权平均值——仅此而已。该公式以纯代码形式存在（",
+    "weightedAverageOutro": "位于后端代码中），而不是对黑箱模型的调用。",
+    "weightOfScore": "占总分 {weight}",
+    "traceHeading": "追踪单个得分点",
+    "traceSubtitle": "这不是原理示例，而是实际机制的逐步呈现。",
+    "noAiHeading": "评分不使用 AI",
+    "noAiBody": "以上内容均不是由语言模型生成、总结或判断的。分数及其背后的每一项发现都来自确定性规则——相同的输入始终产生相同的输出，且每条规则都在源码中可见。你的简历会被解析、评分后即丢弃；不存储任何数据。",
+    "tryItOnYourResume": "用你的简历试一试",
+    "modules": {
+      "keywordOverlap": {
+        "name": "关键词匹配",
+        "weightLabel": "50%",
+        "summary": "最直接的匹配信号：简历是否真正包含这份具体职位描述所要求的内容。",
+        "detail": "简历和职位描述都会通过同一个基于规则的关键词提取器——一个经过整理的技能与工具分类体系，通过精确文本和模糊变体进行匹配（因此「JavaScript」和「JS」被视为同一项技能，但「Java」绝不会悄悄地匹配到「JavaScript」内部）。职位描述要求的每一项技能都会与简历进行比对，每一项匹配或缺失都会按名称列出。",
+        "example1": "「Python」——已匹配，见于技能部分",
+        "example2": "「Docker」——已匹配，见于工作经历部分",
+        "example3": "「Kubernetes」——缺失"
+      },
+      "completeness": {
+        "name": "完整性",
+        "weightLabel": "25%",
+        "summary": "一项独立于具体职位的次要质量信号：简历本身是否结构完整。",
+        "detail": "一组固定的结构性检查——不涉及解读，不对写作质量或语气评分。每一项只有通过或未通过两种结果。",
+        "example1": "「contact_has_email」——在联系方式部分找到了真实的电子邮箱地址",
+        "example2": "「experience_has_dates」——至少有一条工作经历包含日期区间",
+        "example3": "「bullets_quantified」——至少一半的工作要点包含具体数字"
+      },
+      "formatting": {
+        "name": "格式风险提示",
+        "weightLabel": "25%",
+        "summary": "一项独立于具体职位的次要风险信号，针对真实场景下的 ATS 解析。",
+        "detail": "检查那些已知会导致真实申请人追踪系统出错的排版选择——并非因为它们不美观，而是因为许多 ATS 解析器按从左到右、从上到下的顺序读取内容，不符合这一结构的内容可能会被悄悄打乱或丢失。",
+        "example1": "「single_column_layout」——未检测到多栏或基于表格的布局",
+        "example2": "「standard_section_headers」——每个板块标题都与可识别的名称匹配",
+        "example3": "「no_embedded_images」——没有文本被隐藏在解析器无法读取的图片中"
+      }
+    },
+    "trace": {
+      "step1": {
+        "label": "职位描述写道",
+        "content": "「……3 年以上 AWS 或类似云基础设施使用经验……」"
+      },
+      "step2": {
+        "label": "提取器扫描已知术语",
+        "content": "该分类体系将「AWS」列为标准技能，别名为「Amazon Web Services」。「AWS」一词在文本中以清晰的词边界出现——并非隐藏在其他词语内部。"
+      },
+      "step3": {
+        "label": "找到精确匹配",
+        "content": "规则：对「AWS」进行词边界匹配 → 标准技能 AWS，被加入该职位描述的必备技能列表。"
+      },
+      "step4": {
+        "label": "简历随即被检查是否具备同一技能",
+        "content": "你简历中的技能部分会用相同的提取器进行扫描。只要「AWS」或其任一别名出现在技能、工作经历或个人简介中的任意位置，就会被记录为已匹配——并注明来自哪个部分。"
+      },
+      "step5": {
+        "label": "结果",
+        "content": "「AWS」——已匹配，见于工作经历部分。这正是你的结果中显示的那一行。"
+      }
+    }
+  }
+}

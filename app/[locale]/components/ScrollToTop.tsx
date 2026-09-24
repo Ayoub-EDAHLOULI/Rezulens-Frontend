@@ -1,11 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 const SHOW_AFTER_PX = 480;
 
 export default function ScrollToTop() {
+  const t = useTranslations("scrollToTop");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function ScrollToTop() {
         <motion.button
           type="button"
           onClick={scrollToTop}
-          aria-label="Scroll to top"
+          aria-label={t("label")}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 8 }}
