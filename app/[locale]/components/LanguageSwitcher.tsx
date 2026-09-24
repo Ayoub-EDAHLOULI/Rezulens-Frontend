@@ -2,10 +2,11 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { getPathname, usePathname } from "../../../i18n/navigation";
+import { usePathname, useRouter } from "../../../i18n/navigation";
 import { routing, type Locale } from "../../../i18n/routing";
+import PageTransitionOverlay from "./PageTransitionOverlay";
 
 const LOCALE_LABELS: Record<Locale, string> = {
   en: "English",
@@ -19,26 +20,26 @@ const LOCALE_LABELS: Record<Locale, string> = {
 export default function LanguageSwitcher() {
   const t = useTranslations("nav");
   const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const locale = useLocale() as Locale;
+  const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
 
   function switchTo(next: Locale) {
     setOpen(false);
-    // A full navigation (not router.replace) so the root layout's lang/dir
-    // and the theme-init script re-run as a fresh document load rather than
-    // a client-side re-render, which React warns about for raw <script> tags.
-    window.location.assign(
-      getPathname({
+    startTransition(() => {
+      router.replace(
         // @ts-expect-error -- pathname is a dynamic union across all routes here
-        href: { pathname, params },
-        locale: next,
-      }),
-    );
+        { pathname, params },
+        { locale: next },
+      );
+    });
   }
 
   return (
     <div className="relative">
+      <PageTransitionOverlay show={isPending} />
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}

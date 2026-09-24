@@ -35,6 +35,10 @@ function applyTheme(next: Theme) {
   } catch {
     // Best-effort only — the toggle still works for this session.
   }
+  // Also stored as a cookie (not just localStorage) so the server can read
+  // it during SSR and render the correct data-theme attribute directly in
+  // the initial HTML — no blocking client script needed to avoid a flash.
+  document.cookie = `theme=${next}; path=/; max-age=31536000; samesite=lax`;
   // Notify any subscribed useSyncExternalStore instances (including this
   // one) to re-read the snapshot — setAttribute alone doesn't trigger that.
   window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
