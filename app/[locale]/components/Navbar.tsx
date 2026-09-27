@@ -5,7 +5,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import MobileMenu from "./MobileMenu";
 import ThemeToggle from "./ThemeToggle";
 
-const GITHUB_URL = "https://github.com/Ayoub-EDAHLOULI/rezulens-frontend";
+const GITHUB_URL = "https://github.com/Ayoub-EDAHLOULI/Rezulens-Frontend";
 
 export default async function Navbar() {
   const t = await getTranslations("nav");

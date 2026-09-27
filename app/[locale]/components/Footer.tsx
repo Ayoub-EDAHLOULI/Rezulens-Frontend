@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 
-const GITHUB_URL = "https://github.com/Ayoub-EDAHLOULI/rezulens-frontend";
+const GITHUB_URL = "https://github.com/Ayoub-EDAHLOULI/Rezulens-Frontend";
 
 export default function Footer() {
   const t = useTranslations("footer");
